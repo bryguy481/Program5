@@ -8,3 +8,6 @@ To push a change to github   "git push"
 To pull changes from github "git pull origin"
 
 Should be all we need to do.
+
+
+Changed
