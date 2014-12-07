@@ -32,6 +32,11 @@ public class MyGraph implements Graph{
 				edges.remove(i);
 			}
 		}
+		
+		//remove v from all other vertecies
+		for (int i = 0; i < vertices.size(); i++) {
+			((MyVertex) vertices.get(i)).removeVertex(v);
+		}
 		//remove vertex
 		return vertices.remove(v);
 	}
@@ -51,6 +56,17 @@ public class MyGraph implements Graph{
 		//create new MyEdge
 		MyEdge newEdge = new MyEdge(v1, v2);
 		edges.add(newEdge);
+
+		for (int i = 0; i < vertices.size(); i++) {
+			if (vertices.get(i).getId() == v1.getId()) {
+				((MyVertex) vertices.get(i)).addVertex(v2);
+				((MyVertex) vertices.get(i)).addEdge(newEdge);
+			} else if (vertices.get(i).getId() == v2.getId()) {
+				((MyVertex) vertices.get(i)).addVertex(v1);
+				((MyVertex) vertices.get(i)).addEdge(newEdge);
+			}
+		}
+		
 		return newEdge;
 	}
 
@@ -58,7 +74,7 @@ public class MyGraph implements Graph{
 	public Edge addEdge(Edge e) {
 		//create new MyEdge
 		MyEdge newEdge = (MyEdge) e;
-		edges.add(newEdge);
+		edges.add(newEdge);		
 		return newEdge;
 	}
 
@@ -71,6 +87,10 @@ public class MyGraph implements Graph{
 				edges.remove(i);
 				return true;
 			}
+		}
+		
+		for (int i = 0; i < vertices.size(); i++) {
+			((MyVertex) vertices.get(i)).removeEdge(v1,  v2);
 		}
 		//edge not found
 		return false;
@@ -129,7 +149,7 @@ public class MyGraph implements Graph{
 
 	@Override
 	public int colorGraph(ArrayList<GraphColor> colors) {
-		ArrayList<GraphColor> available = colors;
+		//ArrayList<GraphColor> available = colors;
 		
 		
 		
