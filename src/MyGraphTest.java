@@ -6,7 +6,7 @@ import org.junit.Test;
 
 
 public class MyGraphTest {
-
+	//testing git with elcipse
 	@Test
 	public void givenTest() {
 		ArrayList< GraphColor > colors = new ArrayList< GraphColor >( );
