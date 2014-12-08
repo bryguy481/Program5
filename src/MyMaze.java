@@ -44,7 +44,6 @@ public class MyMaze implements Maze {
 		while( finishNum == startNum ) {
 			finishNum = min + (int)(Math.random() * ((max - min) + 1));
 		}
-		System.out.println(graphMaze.vertices());
 		start = graphMaze.vertices().get( startNum );
 		finish = graphMaze.vertices().get( finishNum );
 		
