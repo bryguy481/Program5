@@ -18,6 +18,9 @@ public class MyMaze implements Maze {
 	//Let me know what you think
 	private MyGraph graphMaze;
 	private Vertex [ ][ ] graphArray;
+	
+	private Vertex start, finish;
+	
 	@Override
 	public void generateMaze(int rows, int columns) {
 		// TODO Auto-generated method stub
@@ -31,6 +34,21 @@ public class MyMaze implements Maze {
 		
 		//add vertices into both graphs
 		addVertices( rows , columns );
+		
+		//set start and finish randomly, not using util.random
+		int min = 0;
+		int max = rows*columns;
+		int startNum = min + (int)(Math.random() * ((max - min) + 1));
+		int finishNum = min + (int)(Math.random() * ((max - min) + 1));
+		//if they are the same randomize until different
+		while( finishNum == startNum ) {
+			finishNum = min + (int)(Math.random() * ((max - min) + 1));
+		}
+		System.out.println(graphMaze.vertices());
+		start = graphMaze.vertices().get( startNum );
+		finish = graphMaze.vertices().get( finishNum );
+		
+		
 	}
 
 	/**
@@ -74,19 +92,19 @@ public class MyMaze implements Maze {
 	@Override
 	public Vertex[][] toArray() {
 		// TODO Auto-generated method stub
-		return null;
+		return graphArray;
 	}
 
 	@Override
 	public Vertex startVertex() {
 		// TODO Auto-generated method stub
-		return null;
+		return start;
 	}
 
 	@Override
 	public Vertex finishVertex() {
 		// TODO Auto-generated method stub
-		return null;
+		return finish;
 	}
 
 }
