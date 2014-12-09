@@ -18,3 +18,5 @@ Brian: Update on the code. I add all the vertices into the graph and then add th
        The code runs and our maze appears, it just doesn't have all the edges. I think this is to do with the way
        I put the vertices into the array. For example, the vertex that one vertex is connect with may not be added
        yet so it may not connect them when the GUI is made. Will look more into it later.
+       
+Brian: The Main method is not seeing them as connect when using the "areConnected() method". Will look into this.
