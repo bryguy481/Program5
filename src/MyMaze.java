@@ -1,3 +1,5 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  * 				and is used in the Main.java class when drawing the GUI
  */
 public class MyMaze implements Maze {
-	
+
 	//The graph representation of our maze
 	//TODO
 	//I'd though it would be easiest to just work with these
@@ -18,23 +20,23 @@ public class MyMaze implements Maze {
 	//Let me know what you think
 	private MyGraph graphMaze;
 	private MyVertex [ ][ ] graphArray;
-	
+
 	private MyVertex start, finish;
-	
+
 	@Override
 	public void generateMaze(int rows, int columns) {
 		// TODO Auto-generated method stub
-		
+
 		//TODO
 		//Check my stuff to make sure it looks cool, if not let me know ;)
-		
+
 		//create the graphMaze and graphArray
 		graphMaze = new MyGraph();
 		graphArray = new MyVertex [ rows ][ columns ]; 
-		
+
 		//add vertices into graph
 		addVertices( rows , columns );
-		
+
 		//set start and finish randomly, not using util.random
 		int min = 0;
 		int max = rows*columns;
@@ -46,23 +48,50 @@ public class MyMaze implements Maze {
 		}
 		start = (MyVertex) graphMaze.vertices().get( startNum );
 		finish = (MyVertex) graphMaze.vertices().get( finishNum );
-		
+
 		//generate paths in the maze
 		depthFirstGeneration();
-		
+
 		//TODO
 		//add the connected vertices into the graphArray
 		for ( int i = 0; i < graphMaze.vertices().size(); i++ ) {
 			MyVertex temp = (MyVertex) graphMaze.vertices().get( i );
 			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
 		}
+
+
+		//calculate number of connect vertices
+		int connections = 0;
+		for( int r = 0; r < rows; r++ ) {
+			for( int c = 0; c < columns; c++ ) {
+				if ( (c == 0) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r][c-1] ) ) ) {
+
+				}
+				if ( (c == columns - 1) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r][c + 1] ) ) ) {
+
+				}
+				if ( (r == 0) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r-1][c] ) ) ) {
+
+				}
+				if ( (r == rows - 1) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r + 1][c] ) ) ) {
+
+				}
+				else{
+					connections ++;
+				}
+			}
+		}
+		System.out.println(connections);
+
+
+
 	}
 
 	/**
 	 * Generates the paths in the maze using a depth-first approach
 	 */
 	private void depthFirstGeneration() {
-		
+
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
 		int numOfVertices = graphMaze.vertices().size();
 		MyVertex currentLocation = start;
@@ -78,7 +107,7 @@ public class MyMaze implements Maze {
 				//so we can access the x and y
 				MyVertex temp = (MyVertex) graphMaze.vertices().get( tempV );
 				//If it is next to our current location
-				if ( (temp.getX() - 1 == curX || temp.getX() + 1 == curX) ||  (temp.getY() - 1 == curY || temp.getY() + 1 == curY) ) {
+				if ( ((temp.getX() - 1 == curX || temp.getX() + 1 == curX) && temp.getY() == curY) ||  ((temp.getY() - 1 == curY || temp.getY() + 1 == curY) && temp.getX() == curX)) {
 					//if it has nothing adjacent to it
 					if ( temp.adjacentVertices().size() == 0 ) {
 						unTouchedLocations.add( temp );
@@ -90,11 +119,12 @@ public class MyMaze implements Maze {
 				//choose one at random
 				int randVer =  ( int )( Math.random() *   unTouchedLocations.size() );
 				MyVertex nextVer = unTouchedLocations.get( randVer );
-				
+
 				//connect them and move to the new location
 				graphMaze.addEdge( currentLocation, nextVer );
+				System.out.println("added edge " + currentLocation + " with "  + nextVer);
 				locations.add( currentLocation );
-				
+
 				currentLocation = nextVer;
 				visitedLocations++;
 			}
@@ -120,7 +150,7 @@ public class MyMaze implements Maze {
 				MyVertex temp = new MyVertex();
 				temp.setY( row );
 				temp.setX( col );
-								
+
 				//TODO
 				//Not to sure on this, let me know
 				graphMaze.addVertex( temp );

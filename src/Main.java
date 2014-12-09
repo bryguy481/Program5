@@ -52,6 +52,7 @@ public class Main extends JPanel {
             } 
          }
       }
+      System.out.println(graph.edges().size());
       for( int r = 0; r < rows; r++ ) {
          for( int c = 0; c < columns; c++ ) {
             if ( (c == 0) || ( !graph.areConnected( map[r][c], map[r][c-1] ) ) ) {
