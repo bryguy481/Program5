@@ -17,9 +17,9 @@ public class MyMaze implements Maze {
 	//Instead of generating them on the toGraph and toArray methods
 	//Let me know what you think
 	private MyGraph graphMaze;
-	private Vertex [ ][ ] graphArray;
+	private MyVertex [ ][ ] graphArray;
 	
-	private Vertex start, finish;
+	private MyVertex start, finish;
 	
 	@Override
 	public void generateMaze(int rows, int columns) {
@@ -30,7 +30,7 @@ public class MyMaze implements Maze {
 		
 		//create the graphMaze and graphArray
 		graphMaze = new MyGraph();
-		graphArray = new Vertex [ rows ][ columns ]; 
+		graphArray = new MyVertex [ rows ][ columns ]; 
 		
 		//add vertices into both graphs
 		addVertices( rows , columns );
@@ -44,8 +44,8 @@ public class MyMaze implements Maze {
 		while( finishNum == startNum ) {
 			finishNum = min + (int)(Math.random() * ((max - min) + 1));
 		}
-		start = graphMaze.vertices().get( startNum );
-		finish = graphMaze.vertices().get( finishNum );
+		start = (MyVertex) graphMaze.vertices().get( startNum );
+		finish = (MyVertex) graphMaze.vertices().get( finishNum );
 		
 		
 	}
