@@ -32,7 +32,7 @@ public class MyMaze implements Maze {
 		graphMaze = new MyGraph();
 		graphArray = new MyVertex [ rows ][ columns ]; 
 		
-		//add vertices into both graphs
+		//add vertices into graph
 		addVertices( rows , columns );
 		
 		//set start and finish randomly, not using util.random
@@ -47,7 +47,64 @@ public class MyMaze implements Maze {
 		start = (MyVertex) graphMaze.vertices().get( startNum );
 		finish = (MyVertex) graphMaze.vertices().get( finishNum );
 		
+		//generate paths in the maze
+		depthFirstGeneration();
 		
+		//TODO
+		//add the connected vertices into the graphArray
+		for ( int i = 0; i < graphMaze.vertices().size(); i++ ) {
+			MyVertex temp = (MyVertex) graphMaze.vertices().get( i );
+			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
+		}
+	}
+
+	/**
+	 * Generates the paths in the maze using a depth-first approach
+	 */
+	private void depthFirstGeneration() {
+		
+		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
+		int numOfVertices = graphMaze.vertices().size();
+		MyVertex currentLocation = start;
+		int visitedLocations = 1;
+		while ( visitedLocations < numOfVertices ) {
+			//find all vertices next to currentCell with no adjacent vertices
+			ArrayList< MyVertex > unTouchedLocations = new ArrayList< MyVertex >();
+			int curX = currentLocation.getX();
+			int curY = currentLocation.getY();
+			//TODO
+			//this might be able to be rewritten for better time complexity
+			for ( int tempV = 0; tempV < graphMaze.vertices().size(); tempV++ ) {
+				//so we can access the x and y
+				MyVertex temp = (MyVertex) graphMaze.vertices().get( tempV );
+				//If it is next to our current location
+				if ( (temp.getX() - 1 == curX || temp.getX() + 1 == curX) ||  (temp.getY() - 1 == curY || temp.getY() + 1 == curY) ) {
+					//if it has nothing adjacent to it
+					if ( temp.adjacentVertices().size() == 0 ) {
+						unTouchedLocations.add( temp );
+					}
+				}
+			}
+			//if we have locations next to us with no connections
+			if ( unTouchedLocations.size() > 0 ) {
+				//choose one at random
+				int randVer =  ( int )( Math.random() *   unTouchedLocations.size() );
+				MyVertex nextVer = unTouchedLocations.get( randVer );
+				
+				//connect them and move to the new location
+				graphMaze.addEdge( currentLocation, nextVer );
+				locations.add( currentLocation );
+				
+				currentLocation = nextVer;
+				visitedLocations++;
+			}
+			//no untouched locations next to the current location
+			else {
+				//making the ArrayList act like a stack
+				currentLocation = locations.get( locations.size() - 1 );
+				locations.remove( locations.size() - 1 );
+			}
+		}
 	}
 
 	/**
@@ -63,10 +120,7 @@ public class MyMaze implements Maze {
 				MyVertex temp = new MyVertex();
 				temp.setY( row );
 				temp.setX( col );
-				
-				//add it to the graph and the array
-				graphArray[ row ] [ col ] = temp;
-				
+								
 				//TODO
 				//Not to sure on this, let me know
 				graphMaze.addVertex( temp );
@@ -85,25 +139,25 @@ public class MyMaze implements Maze {
 	 */
 	@Override
 	public Graph toGraph() {
-		return graphMaze;
+		return (Graph) graphMaze;
 	}
 
 	@Override
 	public Vertex[][] toArray() {
 		// TODO Auto-generated method stub
-		return graphArray;
+		return (Vertex[][]) graphArray;
 	}
 
 	@Override
 	public Vertex startVertex() {
 		// TODO Auto-generated method stub
-		return start;
+		return (Vertex) start;
 	}
 
 	@Override
 	public Vertex finishVertex() {
 		// TODO Auto-generated method stub
-		return finish;
+		return (Vertex) finish;
 	}
 
 }

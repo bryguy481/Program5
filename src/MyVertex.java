@@ -94,7 +94,7 @@ public class MyVertex implements Vertex {
 	}
 	
 	public String toString() {
-		return "<v" + id + ":" + color + ">";
+		return "<v" + id + ":" + color + ":" + x + "," + y + ">";
 	}
 
 }
