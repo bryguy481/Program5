@@ -13,7 +13,7 @@ public class Main extends JPanel {
    
    MyMaze maze = null;
    ArrayList<Vertex> path = null;
-   int rows = 60;
+   int rows = 50;
    int columns = 50;
    
    public Main( ) {
