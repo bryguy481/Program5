@@ -141,12 +141,12 @@ public class MyMaze implements Maze {
 	 */
 	private void addVertices(int rows, int columns) {
 		// TODO Auto-generated method stub
-		for ( int row = 0; row < rows; row++ ) {
-			for ( int col = 0; col < columns; col++ ) {
+		for ( int row = 0; row < rows ; row++ ) {
+			for ( int col = 0; col < columns ; col++ ) {
 				//create the vertex
 				MyVertex temp = new MyVertex();
-				temp.setY( row );
-				temp.setX( col );
+				temp.setY( col );
+				temp.setX( row );
 
 				//TODO
 				//Not to sure on this, let me know
