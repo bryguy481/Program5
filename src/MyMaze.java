@@ -1,5 +1,3 @@
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -50,7 +48,7 @@ public class MyMaze implements Maze {
 		finish = (MyVertex) graphMaze.vertices().get( finishNum );
 
 		//generate paths in the maze
-		depthFirstGeneration();
+		depthFirstGeneration(rows, columns);
 
 		//TODO
 		//add the connected vertices into the graphArray
@@ -58,41 +56,20 @@ public class MyMaze implements Maze {
 			MyVertex temp = (MyVertex) graphMaze.vertices().get( i );
 			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
 		}
-
-
-		//calculate number of connect vertices
-		int connections = 0;
-		for( int r = 0; r < rows; r++ ) {
-			for( int c = 0; c < columns; c++ ) {
-				if ( (c == 0) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r][c-1] ) ) ) {
-
-				}
-				if ( (c == columns - 1) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r][c + 1] ) ) ) {
-
-				}
-				if ( (r == 0) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r-1][c] ) ) ) {
-
-				}
-				if ( (r == rows - 1) || ( !graphMaze.areConnected( graphArray[r][c], graphArray[r + 1][c] ) ) ) {
-
-				}
-				else{
-					connections++;
-				}
-			}
-		}
-
-
 	}
 
 	/**
 	 * Generates the paths in the maze using a depth-first approach
 	 */
-	private void depthFirstGeneration() {
+	private void depthFirstGeneration(int rows, int columns) {
 
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
 		int numOfVertices = graphMaze.vertices().size();
-		MyVertex currentLocation = start;
+		
+		int min = 0;
+		int max = rows*columns;
+		//grab start position to generate maze
+		MyVertex currentLocation = (MyVertex) (graphMaze.vertices().get(min + (int)(Math.random() * ((max - min) + 1))));
 		int visitedLocations = 1;
 		while ( visitedLocations < numOfVertices ) {
 			//find all vertices next to currentCell with no adjacent vertices
