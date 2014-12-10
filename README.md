@@ -9,4 +9,4 @@ To pull changes from github "git pull origin"
 
 Messages
 
-Brian: Maze and solution is all set, need to make tests now
+Brian: The print puts are just for testing purposes until we know we are all good.

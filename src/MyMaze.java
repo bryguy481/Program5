@@ -155,7 +155,7 @@ public class MyMaze implements Maze {
 		MyVertex v = (MyVertex) vertex;
 		//this vertex is now visited
 		visited[v.getX()][v.getY()] = true;
-		System.out.println("looking for the finish");
+		//System.out.println("looking for the finish");
 		//finish found
 		if (v.getX() == finish.getX() && v.getY() == finish.getY()) return true;
 		
