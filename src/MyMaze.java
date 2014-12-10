@@ -77,12 +77,10 @@ public class MyMaze implements Maze {
 
 				}
 				else{
-					connections ++;
+					connections++;
 				}
 			}
 		}
-		System.out.println(connections);
-
 
 
 	}
@@ -122,7 +120,6 @@ public class MyMaze implements Maze {
 
 				//connect them and move to the new location
 				graphMaze.addEdge( currentLocation, nextVer );
-				System.out.println("added edge " + currentLocation + " with "  + nextVer);
 				locations.add( currentLocation );
 
 				currentLocation = nextVer;
@@ -158,10 +155,44 @@ public class MyMaze implements Maze {
 		}
 	}
 
+
+	private ArrayList<Vertex> solution;
+	private boolean[][] visited;
 	@Override
 	public ArrayList<Vertex> solveMaze() {
-		// TODO Auto-generated method stub
-		return null;
+		//reset solution and visited
+		solution = new ArrayList<Vertex>();
+		visited = new boolean[graphArray.length][graphArray[0].length];
+	
+		//if result found, return the solution
+		if (solveHelper(start))
+			return solution;
+		else
+			return new ArrayList<Vertex>();
+	}
+	
+	//Recursive helper method to find the solution
+	private boolean solveHelper(Vertex vertex) {
+		MyVertex v = (MyVertex) vertex;
+		//this vertex is now visited
+		visited[v.getX()][v.getY()] = true;
+		
+		//finish found
+		if (v.getX() == finish.getX() && v.getY() == finish.getY()) return true;
+		
+		for (int i = 0; i < v.adjacentVertices().size(); i++) {
+			MyVertex next = (MyVertex) v.adjacentVertices().get(i);
+			//if the next vertex hasn't been visited
+			if (!visited[next.getX()][next.getY()]) {
+				if (solveHelper(next)) {
+					//add if finish found ahead
+					solution.add(v);
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 
 	/**
