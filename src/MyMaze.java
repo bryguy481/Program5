@@ -38,11 +38,11 @@ public class MyMaze implements Maze {
 		//set start and finish randomly, not using util.random
 		int min = 0;
 		int max = rows*columns;
-		int startNum = min + (int)(Math.random() * ((max - min) + 1));
-		int finishNum = min + (int)(Math.random() * ((max - min) + 1));
+		int startNum = min + (int)(Math.random() * ((max - min) ));
+		int finishNum = min + (int)(Math.random() * ((max - min) ));
 		//if they are the same randomize until different
 		while( finishNum == startNum ) {
-			finishNum = min + (int)(Math.random() * ((max - min) + 1));
+			finishNum = min + (int)(Math.random() * ((max - min) ));
 		}
 		start = (MyVertex) graphMaze.vertices().get( startNum );
 		finish = (MyVertex) graphMaze.vertices().get( finishNum );
@@ -62,14 +62,14 @@ public class MyMaze implements Maze {
 	 * Generates the paths in the maze using a depth-first approach
 	 */
 	private void depthFirstGeneration(int rows, int columns) {
-
+		System.out.println("Making Maze.");
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
 		int numOfVertices = graphMaze.vertices().size();
 		
 		int min = 0;
 		int max = rows*columns;
 		//grab start position to generate maze
-		MyVertex currentLocation = (MyVertex) (graphMaze.vertices().get(min + (int)(Math.random() * ((max - min) + 1))));
+		MyVertex currentLocation = (MyVertex) (graphMaze.vertices().get(min + (int)(Math.random() * ((max - min) ))));
 		int visitedLocations = 1;
 		while ( visitedLocations < numOfVertices ) {
 			//find all vertices next to currentCell with no adjacent vertices
@@ -118,6 +118,7 @@ public class MyMaze implements Maze {
 	 */
 	private void addVertices(int rows, int columns) {
 		// TODO Auto-generated method stub
+		System.out.println("Making vertices");
 		for ( int row = 0; row < rows ; row++ ) {
 			for ( int col = 0; col < columns ; col++ ) {
 				//create the vertex
@@ -137,6 +138,7 @@ public class MyMaze implements Maze {
 	private boolean[][] visited;
 	@Override
 	public ArrayList<Vertex> solveMaze() {
+		System.out.println("Solving maze");
 		//reset solution and visited
 		solution = new ArrayList<Vertex>();
 		visited = new boolean[graphArray.length][graphArray[0].length];
@@ -153,7 +155,7 @@ public class MyMaze implements Maze {
 		MyVertex v = (MyVertex) vertex;
 		//this vertex is now visited
 		visited[v.getX()][v.getY()] = true;
-		
+		System.out.println("looking for the finish");
 		//finish found
 		if (v.getX() == finish.getX() && v.getY() == finish.getY()) return true;
 		
