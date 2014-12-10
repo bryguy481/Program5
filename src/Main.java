@@ -13,8 +13,8 @@ public class Main extends JPanel {
    
    MyMaze maze = null;
    ArrayList<Vertex> path = null;
-   int rows = 60;
-   int columns = 50;
+   int rows = 120;
+   int columns = 170;
    
    public Main( ) {
       maze = new MyMaze();
@@ -37,6 +37,7 @@ public class Main extends JPanel {
       double h = Math.round( (this.getHeight( )-5)/( 1.0 * (rows+2) ) );
       for( int r = 0; r < rows; r++ ) {
          for( int c = 0; c < columns; c++ ) {
+        	 System.out.println("painting");
             if ( map[r][c] == maze.startVertex( ) ) {
                g2.setColor( Color.GREEN );
                g2.setStroke(new BasicStroke(5));
