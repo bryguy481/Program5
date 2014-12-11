@@ -70,19 +70,29 @@ public class MyMaze implements Maze {
 		if ( rows == 0 || columns == 0 ) {
 			return;
 		}
+		
+		//They can be the same when its 1 by 1
+		if ( rows == 1 || columns == 1 ) {
+			start = ( MyVertex ) graphMaze.vertices().get( 0 );
+			finish = ( MyVertex ) graphMaze.vertices().get( 0 );
+			return;
+		}
 
 		int min = 0;
 		int max = rows*columns;
 		int startNum = min + (int)(Math.random() * ((max - min) ));
 		int finishNum = min + (int)(Math.random() * ((max - min) ));
 
+		
+	
+		
 		//if they are the same randomize until different
 		while( finishNum == startNum ) {
 			finishNum = min + (int)(Math.random() * ((max - min) ));
 		}
 
-		start = (MyVertex) graphMaze.vertices().get( startNum );
-		finish = (MyVertex) graphMaze.vertices().get( finishNum );
+		start = ( MyVertex ) graphMaze.vertices().get( startNum );
+		finish = ( MyVertex ) graphMaze.vertices().get( finishNum );
 
 
 	}
@@ -168,10 +178,8 @@ public class MyMaze implements Maze {
 		System.out.println("rows = " + rows + " cols = " + columns);
 		//Loop through all vertices and set their x and y variables, then add them to the graph
 		for ( int row = 0; row < rows ; row++ ) {
-			System.out.println(row);
 			for ( int col = 0; col < columns ; col++ ) {
 				//create the vertex
-				System.out.println(col);
 				MyVertex temp = new MyVertex();
 				temp.setY( col );
 				temp.setX( row );
