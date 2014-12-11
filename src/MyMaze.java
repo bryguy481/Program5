@@ -135,44 +135,44 @@ public class MyMaze implements Maze {
 		}
 	}
 
-	//Vars used to solve the maze
-	private ArrayList<Vertex> solution;
-	private boolean[][] visited;
+	//Variables used to solve the maze
+	private ArrayList< Vertex > solution;
+	private boolean[ ][ ] visited;
 	
 	/**
 	 * @return Returns an ArrayList of Vertices that is the 
 	 *         path from the start to the finish of the maze.
 	 */
 	@Override
-	public ArrayList<Vertex> solveMaze() {
+	public ArrayList< Vertex > solveMaze() {
 		System.out.println("Solving maze");
 		//reset solution and visited
-		solution = new ArrayList<Vertex>();
-		visited = new boolean[graphArray.length][graphArray[0].length];
+		solution = new ArrayList< Vertex >();
+		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
 	
 		//if result found, return the solution
-		if (solveHelper(start))
+		if  ( solveHelper( start ) )
 			return solution;
 		else
-			return new ArrayList<Vertex>();
+			return new ArrayList<Vertex>( );
 	}
 	
 	//Recursive helper method to find the solution
-	private boolean solveHelper(Vertex vertex) {
-		MyVertex v = (MyVertex) vertex;
+	private boolean solveHelper( Vertex vertex ) {
+		MyVertex v = ( MyVertex ) vertex;
 		//this vertex is now visited
-		visited[v.getX()][v.getY()] = true;
+		visited[ v.getX() ][ v.getY() ] = true;
 		//System.out.println("looking for the finish");
 		//finish found
-		if (v.getX() == finish.getX() && v.getY() == finish.getY()) return true;
+		if ( v.getX() == finish.getX() && v.getY() == finish.getY() ) return true;
 		
-		for (int i = 0; i < v.adjacentVertices().size(); i++) {
-			MyVertex next = (MyVertex) v.adjacentVertices().get(i);
+		for ( int i = 0; i < v.adjacentVertices().size(); i++ ) {
+			MyVertex next = ( MyVertex ) v.adjacentVertices().get(i);
 			//if the next vertex hasn't been visited
-			if (!visited[next.getX()][next.getY()]) {
-				if (solveHelper(next)) {
+			if ( !visited[ next.getX() ][ next.getY() ] ) {
+				if ( solveHelper( next ) ) {
 					//add if finish found ahead
-					solution.add(v);
+					solution.add( v );
 					return true;
 				}
 			}
@@ -185,35 +185,32 @@ public class MyMaze implements Maze {
 	 * @return Returns a graph representation of the maze.
 	 */
 	@Override
-	public Graph toGraph() {
-		return (Graph) graphMaze;
+	public Graph toGraph( ) {
+		return ( Graph ) graphMaze;
 	}
 
 	/**
 	 * @return Returns an Array representation of the maze.
 	 */
 	@Override
-	public Vertex[][] toArray() {
-		// TODO Auto-generated method stub
-		return (Vertex[][]) graphArray;
+	public Vertex[][] toArray( ) {
+		return ( Vertex[ ][ ] ) graphArray;
 	}
 
 	/**
 	 * @return Returns the start vertex of the maze.
 	 */
 	@Override
-	public Vertex startVertex() {
-		// TODO Auto-generated method stub
-		return (Vertex) start;
+	public Vertex startVertex( ) {
+		return ( Vertex ) start;
 	}
 
 	/**
 	 * @return Returns the finish vertex of the maze.
 	 */
 	@Override
-	public Vertex finishVertex() {
-		// TODO Auto-generated method stub
-		return (Vertex) finish;
+	public Vertex finishVertex( ) {
+		return ( Vertex ) finish;
 	}
 
 }
