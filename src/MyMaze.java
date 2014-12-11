@@ -12,21 +12,19 @@ import java.util.ArrayList;
 public class MyMaze implements Maze {
 
 	//The graph representation of our maze
-	//TODO
-	//I'd though it would be easiest to just work with these
-	//Instead of generating them on the toGraph and toArray methods
-	//Let me know what you think
 	private MyGraph graphMaze;
+	//The array representation of the graph
 	private MyVertex [ ][ ] graphArray;
-
+	//The start and finish vertices of the maze
 	private MyVertex start, finish;
 
+	/**
+	 * Generates a Maze with the passed in number of rows and columns
+	 * @param rows Number of rows in the maze
+	 * @param columns Number of columns in the maze
+	 */
 	@Override
 	public void generateMaze(int rows, int columns) {
-		// TODO Auto-generated method stub
-
-		//TODO
-		//Check my stuff to make sure it looks cool, if not let me know ;)
 
 		//create the graphMaze and graphArray
 		graphMaze = new MyGraph();
@@ -40,49 +38,54 @@ public class MyMaze implements Maze {
 		int max = rows*columns;
 		int startNum = min + (int)(Math.random() * ((max - min) ));
 		int finishNum = min + (int)(Math.random() * ((max - min) ));
+		
 		//if they are the same randomize until different
 		while( finishNum == startNum ) {
 			finishNum = min + (int)(Math.random() * ((max - min) ));
 		}
+		
 		start = (MyVertex) graphMaze.vertices().get( startNum );
 		finish = (MyVertex) graphMaze.vertices().get( finishNum );
 
 		//generate paths in the maze
 		depthFirstGeneration(rows, columns);
 
-		//TODO
 		//add the connected vertices into the graphArray
 		for ( int i = 0; i < graphMaze.vertices().size(); i++ ) {
-			MyVertex temp = (MyVertex) graphMaze.vertices().get( i );
+			MyVertex temp = ( MyVertex ) graphMaze.vertices().get( i );
 			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
 		}
 	}
 
 	/**
-	 * Generates the paths in the maze using a depth-first approach
+	 * Generates the paths in the maze using a depth-first approach.
+	 * @param rows The number of rows in the maze.
+	 * @param columns The number of columns in the maze.
 	 */
-	private void depthFirstGeneration(int rows, int columns) {
+	private void depthFirstGeneration( int rows, int columns ) {
 		System.out.println("Making Maze.");
+		//To keep track of where you have been, this is used as a stack
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
 		int numOfVertices = graphMaze.vertices().size();
 		
 		int min = 0;
 		int max = rows*columns;
-		//grab start position to generate maze
-		MyVertex currentLocation = (MyVertex) (graphMaze.vertices().get(min + (int)(Math.random() * ((max - min) ))));
+		//Randomly pick a starting vertex to generate from
+		MyVertex currentLocation = ( MyVertex ) ( graphMaze.vertices().get( min + ( int )( Math.random() * ( ( max - min ) ) ) ) );
 		int visitedLocations = 1;
+		//Add edges until every vertex has one edge
 		while ( visitedLocations < numOfVertices ) {
 			//find all vertices next to currentCell with no adjacent vertices
 			ArrayList< MyVertex > unTouchedLocations = new ArrayList< MyVertex >();
 			int curX = currentLocation.getX();
 			int curY = currentLocation.getY();
-			//TODO
-			//this might be able to be rewritten for better time complexity
+
+			//This finds all neighbors to the current position that have not been visited and adds it to the List
 			for ( int tempV = 0; tempV < graphMaze.vertices().size(); tempV++ ) {
 				//so we can access the x and y
 				MyVertex temp = (MyVertex) graphMaze.vertices().get( tempV );
 				//If it is next to our current location
-				if ( ((temp.getX() - 1 == curX || temp.getX() + 1 == curX) && temp.getY() == curY) ||  ((temp.getY() - 1 == curY || temp.getY() + 1 == curY) && temp.getX() == curX)) {
+				if ( ( ( temp.getX() - 1 == curX || temp.getX() + 1 == curX ) && temp.getY() == curY ) ||  ( ( temp.getY() - 1 == curY || temp.getY() + 1 == curY ) && temp.getX() == curX ) ) {
 					//if it has nothing adjacent to it
 					if ( temp.adjacentVertices().size() == 0 ) {
 						unTouchedLocations.add( temp );
@@ -105,6 +108,7 @@ public class MyMaze implements Maze {
 			//no untouched locations next to the current location
 			else {
 				//making the ArrayList act like a stack
+				//Go back a step to look for neighbors with no connections
 				currentLocation = locations.get( locations.size() - 1 );
 				locations.remove( locations.size() - 1 );
 			}
@@ -113,29 +117,32 @@ public class MyMaze implements Maze {
 
 	/**
 	 * This is a helper method that inserts all the vertices into the graphMaze and the grapArray
-	 * @param rows
-	 * @param columns
+	 * @param rows The number of rows in the maze.
+	 * @param columns The number of columns in the maze.
 	 */
 	private void addVertices(int rows, int columns) {
-		// TODO Auto-generated method stub
 		System.out.println("Making vertices");
+		//Loop through all vertices and set their x and y variables, then add them to the graph
 		for ( int row = 0; row < rows ; row++ ) {
 			for ( int col = 0; col < columns ; col++ ) {
 				//create the vertex
 				MyVertex temp = new MyVertex();
 				temp.setY( col );
 				temp.setX( row );
-
-				//TODO
-				//Not to sure on this, let me know
+				
 				graphMaze.addVertex( temp );
 			}
 		}
 	}
 
-
+	//Vars used to solve the maze
 	private ArrayList<Vertex> solution;
 	private boolean[][] visited;
+	
+	/**
+	 * @return Returns an ArrayList of Vertices that is the 
+	 *         path from the start to the finish of the maze.
+	 */
 	@Override
 	public ArrayList<Vertex> solveMaze() {
 		System.out.println("Solving maze");
@@ -175,25 +182,34 @@ public class MyMaze implements Maze {
 	}
 
 	/**
-	 * @return Returns a graph representation of the maze
+	 * @return Returns a graph representation of the maze.
 	 */
 	@Override
 	public Graph toGraph() {
 		return (Graph) graphMaze;
 	}
 
+	/**
+	 * @return Returns an Array representation of the maze.
+	 */
 	@Override
 	public Vertex[][] toArray() {
 		// TODO Auto-generated method stub
 		return (Vertex[][]) graphArray;
 	}
 
+	/**
+	 * @return Returns the start vertex of the maze.
+	 */
 	@Override
 	public Vertex startVertex() {
 		// TODO Auto-generated method stub
 		return (Vertex) start;
 	}
 
+	/**
+	 * @return Returns the finish vertex of the maze.
+	 */
 	@Override
 	public Vertex finishVertex() {
 		// TODO Auto-generated method stub
