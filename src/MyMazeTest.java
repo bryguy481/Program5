@@ -19,7 +19,110 @@ public class MyMazeTest {
 	 */
 	@Test
 	public void testGenerateMaze( ) {
-		fail("Not yet implemented");
+		
+		//TestOne
+		//Edge Case where there are 0 rows and some number of columns
+		
+		MyMaze testMaze = new MyMaze();
+		testMaze.generateMaze( 0, 5 );
+		
+		//There should be no start 
+		if ( testMaze.startVertex() != null ) {
+			fail( "Start vertex not null when 0 rows!" );
+		}
+		
+		//There should be no finish
+		if ( testMaze.finishVertex() != null ) {
+			fail( "Finish vertex not null when 0 rows!" );
+		}
+		
+		//There should be no solution
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "There should be no solution!" );
+		}
+		
+		//There should be no vertices in the maze
+		if ( testMaze.toGraph().vertices().size() > 0 ) {
+			fail( "There should be no vertices in the graph!" );
+		}
+		
+		//The array representation should be of size 0
+		if ( testMaze.toArray().length > 0 ) {
+			fail( "Array should be of size 0!" );
+		}
+		
+		//The toString Method should return ""
+		if ( !testMaze.toString().equals( "" ) ) {
+			fail( "ToString should be empty!" );
+		}
+		
+		//TestTwo
+		//Edge Case where there are 0 columns and some number of rows
+		
+		testMaze.generateMaze( 5, 0 );
+		
+		//There should be no start 
+		if ( testMaze.startVertex() != null ) {
+			fail( "Start vertex not null when 0 rows!" );
+		}
+		
+		//There should be no finish
+		if ( testMaze.finishVertex() != null ) {
+			fail( "Finish vertex not null when 0 rows!" );
+		}
+		
+		//There should be no solution
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "There should be no solution!" );
+		}
+		
+		//There should be no vertices in the maze
+		if ( testMaze.toGraph().vertices().size() > 0 ) {
+			fail( "There should be no vertices in the graph!" );
+		}
+		
+		//The array representation should be of size 0
+		if ( testMaze.toArray().length > 0 ) {
+			fail( "Array should be of size 0!" );
+		}
+		
+		//The toString Method should return ""
+		if ( !testMaze.toString().equals( "" ) ) {
+			fail( "ToString should be empty!" );
+		}
+		
+		//TestThree
+		//Edge Case where rows and columns are both 1
+		
+		testMaze.generateMaze( 1, 1 );
+		
+		//The start and finish should be the same
+		if ( testMaze.startVertex() != testMaze.finishVertex() ) {
+			fail( "Start vertex not null when 0 rows!" );
+		}
+		
+		
+		//There should be no solution
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "There should be no solution!" );
+		}
+		
+		//There should be no vertices in the maze
+		if ( testMaze.toGraph().vertices().size() > 0 ) {
+			fail( "There should be no vertices in the graph!" );
+		}
+		
+		//The array representation should be of size 0
+		if ( testMaze.toArray().length > 0 ) {
+			fail( "Array should be of size 0!" );
+		}
+		
+		//The toString Method should return ""
+		if ( !testMaze.toString().equals( "" ) ) {
+			fail( "ToString should be empty!" );
+		}
+		
+		//fail("Not yet implemented");
 	}
 	
 	/**

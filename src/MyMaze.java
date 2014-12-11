@@ -18,6 +18,9 @@ public class MyMaze implements Maze {
 	//The start and finish vertices of the maze
 	private MyVertex start, finish;
 
+	//The number of rows and columns in the maze
+	int rows, columns;
+
 	/**
 	 * Generates a Maze with the passed in number of rows and columns
 	 * @param rows Number of rows in the maze
@@ -28,27 +31,25 @@ public class MyMaze implements Maze {
 
 		//create the graphMaze and graphArray
 		graphMaze = new MyGraph();
-		graphArray = new MyVertex [ rows ][ columns ]; 
 
-		//add vertices into graph
-		addVertices( rows , columns );
-
-		//set start and finish randomly, not using util.random
-		int min = 0;
-		int max = rows*columns;
-		int startNum = min + (int)(Math.random() * ((max - min) ));
-		int finishNum = min + (int)(Math.random() * ((max - min) ));
-		
-		//if they are the same randomize until different
-		while( finishNum == startNum ) {
-			finishNum = min + (int)(Math.random() * ((max - min) ));
+		if ( rows == 0 || columns == 0 ) {
+			graphArray = new MyVertex [ 0 ] [ 0 ];
+		} 
+		else {
+			graphArray = new MyVertex [ rows ] [ columns ]; 
 		}
 		
-		start = (MyVertex) graphMaze.vertices().get( startNum );
-		finish = (MyVertex) graphMaze.vertices().get( finishNum );
+		this.rows = rows;
+		this.columns = columns;
+
+		//add vertices into graph
+		addVertices();
+
+		//set start and finish randomly, not using util.random
+		setStartAndFinish();
 
 		//generate paths in the maze
-		depthFirstGeneration(rows, columns);
+		depthFirstGeneration();
 
 		//add the connected vertices into the graphArray
 		for ( int i = 0; i < graphMaze.vertices().size(); i++ ) {
@@ -58,16 +59,52 @@ public class MyMaze implements Maze {
 	}
 
 	/**
+	 * Sets the start and finish vertices for the maze.
+	 * If the maze has 0 rows or columns they are not set and are null
+	 * @param rows
+	 * @param columns
+	 */
+	private void setStartAndFinish( ) {
+
+		//If there are 0 rows or 0 columns stop
+		if ( rows == 0 || columns == 0 ) {
+			return;
+		}
+
+		int min = 0;
+		int max = rows*columns;
+		int startNum = min + (int)(Math.random() * ((max - min) ));
+		int finishNum = min + (int)(Math.random() * ((max - min) ));
+
+		//if they are the same randomize until different
+		while( finishNum == startNum ) {
+			finishNum = min + (int)(Math.random() * ((max - min) ));
+		}
+
+		start = (MyVertex) graphMaze.vertices().get( startNum );
+		finish = (MyVertex) graphMaze.vertices().get( finishNum );
+
+
+	}
+
+	/**
 	 * Generates the paths in the maze using a depth-first approach.
+	 * Will only generate if rows and columns are above 0
 	 * @param rows The number of rows in the maze.
 	 * @param columns The number of columns in the maze.
 	 */
-	private void depthFirstGeneration( int rows, int columns ) {
+	private void depthFirstGeneration(  ) {
 		System.out.println("Making Maze.");
+
+		//If there are 0 rows or 0 columns stop
+		if ( rows == 0 || columns == 0 ) {
+			return;
+		}
+
 		//To keep track of where you have been, this is used as a stack
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
 		int numOfVertices = graphMaze.vertices().size();
-		
+
 		int min = 0;
 		int max = rows*columns;
 		//Randomly pick a starting vertex to generate from
@@ -117,15 +154,24 @@ public class MyMaze implements Maze {
 
 	/**
 	 * This is a helper method that inserts all the vertices into the graphMaze and the grapArray
+	 * Will only add vertices if rows and columns > 0
 	 * @param rows The number of rows in the maze.
 	 * @param columns The number of columns in the maze.
 	 */
-	private void addVertices(int rows, int columns) {
+	private void addVertices( ) {
 		System.out.println("Making vertices");
+
+		//If there are 0 rows or 0 columns stop
+		if ( rows == 0 || columns == 0 ) {
+			return;
+		}
+		System.out.println("rows = " + rows + " cols = " + columns);
 		//Loop through all vertices and set their x and y variables, then add them to the graph
 		for ( int row = 0; row < rows ; row++ ) {
+			System.out.println(row);
 			for ( int col = 0; col < columns ; col++ ) {
 				//create the vertex
+				System.out.println(col);
 				MyVertex temp = new MyVertex();
 				temp.setY( col );
 				temp.setX( row );
@@ -138,7 +184,7 @@ public class MyMaze implements Maze {
 	//Variables used to solve the maze
 	private ArrayList< Vertex > solution;
 	private boolean[ ][ ] visited;
-	
+
 	/**
 	 * @return Returns an ArrayList of Vertices that is the 
 	 *         path from the start to the finish of the maze.
@@ -146,17 +192,24 @@ public class MyMaze implements Maze {
 	@Override
 	public ArrayList< Vertex > solveMaze() {
 		System.out.println("Solving maze");
+
 		//reset solution and visited
 		solution = new ArrayList< Vertex >();
+
+		//If there are 0 rows or 0 columns stop
+		if ( rows == 0 || columns == 0 ) {
+			return solution;
+		}
+
 		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
-	
+
 		//if result found, return the solution
 		if  ( solveHelper( start ) )
 			return solution;
 		else
 			return new ArrayList<Vertex>( );
 	}
-	
+
 	//Recursive helper method to find the solution
 	private boolean solveHelper( Vertex vertex ) {
 		MyVertex v = ( MyVertex ) vertex;
@@ -165,7 +218,7 @@ public class MyMaze implements Maze {
 		//System.out.println("looking for the finish");
 		//finish found
 		if ( v.getX() == finish.getX() && v.getY() == finish.getY() ) return true;
-		
+
 		for ( int i = 0; i < v.adjacentVertices().size(); i++ ) {
 			MyVertex next = ( MyVertex ) v.adjacentVertices().get(i);
 			//if the next vertex hasn't been visited
@@ -177,7 +230,7 @@ public class MyMaze implements Maze {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -211,6 +264,20 @@ public class MyMaze implements Maze {
 	@Override
 	public Vertex finishVertex( ) {
 		return ( Vertex ) finish;
+	}
+
+	/**
+	 * Returns a string representation of the maze
+	 */
+	@Override
+	public String toString( ) {
+		String result = "";
+		//If there are 0 rows or 0 columns stop
+		if ( rows != 0 && columns != 0 ) {
+			return result;
+		}
+
+		return "";
 	}
 
 }
