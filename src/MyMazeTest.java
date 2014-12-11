@@ -98,30 +98,32 @@ public class MyMazeTest {
 		
 		//The start and finish should be the same
 		if ( testMaze.startVertex() != testMaze.finishVertex() ) {
-			fail( "Start vertex not null when 0 rows!" );
+			fail( "Start vertex should be the same as the finish vertex!" );
 		}
 		
 		
 		//There should be no solution
-		if ( testMaze.solveMaze().size() > 0 ) {
-			fail( "There should be no solution!" );
+		if ( testMaze.solveMaze().size() > 1 ) {
+			fail( "There should be a solution!" );
 		}
 		
 		//There should be no vertices in the maze
-		if ( testMaze.toGraph().vertices().size() > 0 ) {
-			fail( "There should be no vertices in the graph!" );
+		if ( testMaze.toGraph().vertices().size() > 1 ) {
+			fail( "There should be 1 vertex in the graph!" );
 		}
 		
 		//The array representation should be of size 0
-		if ( testMaze.toArray().length > 0 ) {
-			fail( "Array should be of size 0!" );
+		if ( testMaze.toArray().length > 1 ) {
+			fail( "Array should be of size 1!" );
 		}
 		
 		//The toString Method should return ""
-		if ( !testMaze.toString().equals( "" ) ) {
-			fail( "ToString should be empty!" );
+		if ( testMaze.toString().equals( "" ) ) {
+			fail( "ToString should not be empty!" );
 		}
 		
+		//TestFour
+		//Edge Case where there are a lot of rows and columns
 		//fail("Not yet implemented");
 	}
 	
