@@ -287,11 +287,12 @@ public class MyMaze implements Maze {
 		
 		String str = "";
 		String[] lines = new String[rows * 2 - 1];
+		ArrayList<Vertex> solution = solveMaze();
 
 		for (int i = 0; i < rows; i++) {
-			//vertices and horizontal edges
+					
 
-
+			//verticle edges
 			if (i != 0) {
 				for (int j = 0; j < columns; j++) {
 					if (graphMaze.areConnected(graphArray[i - 1][j], graphArray[i][j]))
@@ -303,9 +304,16 @@ public class MyMaze implements Maze {
 			}
 			
 			str += "\n";
-			
+			//vertices and horizontal edges
 			for (int j = 0; j < columns; j++) {
-				str += "•";
+				if (graphArray[i][j].getId() == finish.getId())
+					str += "F";
+				else if (graphArray[i][j] == start)
+					str += "S";
+				else if (solution.contains(graphArray[i][j]))
+					str += "o";
+				else
+					str += "•";
 				if (j != columns - 1) {
 					if (graphMaze.areConnected(graphArray[i][j], graphArray[i][j + 1]))
 						str += "--";
