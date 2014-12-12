@@ -57,7 +57,8 @@ public class MyMaze implements Maze {
 			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
 		}
 	}
-
+	
+	
 	/**
 	 * Sets the start and finish vertices for the maze.
 	 * If the maze has 0 rows or columns they are not set and are null
@@ -202,17 +203,17 @@ public class MyMaze implements Maze {
 		solution = new ArrayList< Vertex >();
 
 		//If there are 0 rows or 0 columns stop
-		//if ( rows == 0 || columns == 0 ) {
+		if ( rows == 0 || columns == 0 ) {
 			return solution;
-		//}
+		}
 
-//		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
-//
-//		//if result found, return the solution
-//		if  ( solveHelper( start ) )
-//			return solution;
-//		else
-//			return new ArrayList<Vertex>( );
+		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
+
+		//if result found, return the solution
+		if  ( solveHelper( start ) )
+			return solution;
+		else
+			return new ArrayList<Vertex>( );
 	}
 
 	//Recursive helper method to find the solution
