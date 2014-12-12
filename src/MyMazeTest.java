@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 /**
@@ -123,8 +125,13 @@ public class MyMazeTest {
 		}
 		
 		//TestFour
-		//Edge Case where there are a lot of rows and columns
-		//fail("Not yet implemented");
+		//Edge Case where there are a lot of rows and columns, checks to see if there are the right amount of vertices
+		testMaze.generateMaze( 80, 50 );
+		
+		if ( testMaze.toGraph().vertices().size() != 80 * 50 ) {
+			fail( " Did not generate the correct amount of vertices!" );
+		}
+		
 	}
 	
 	/**
@@ -133,6 +140,56 @@ public class MyMazeTest {
 	@Test
 	public void testSolveMAze( ) {
 		
+		MyMaze testMaze = new MyMaze();
+		//TestOne
+		//EdgeCase where the maze is not solvable 0 rows and 0 columns
+		testMaze.generateMaze( 0, 0 );
+		
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "The solution should be empty due to 0 rows and 0 columns!" );
+		}
+		
+		//TestTwo
+		//EdgeCase with 0 rows and some number of columns
+		testMaze.generateMaze( 0, 50 );
+		
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "The solution should be empty due to 0 rows and some # of columns!" );
+		}
+		
+		//TestThree
+		//EdgeCase with some number of rows and 0 columns
+		testMaze.generateMaze(50, 0);
+		
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "The solution should be empty due to some # of rows and 0 columns!" );
+		}
+		
+		//TestThree
+		//EdgeCase with equal rows and columns
+		testMaze.generateMaze( 20, 20 );
+		
+		//check to see if solution is correct
+		ArrayList< Vertex > solution = testMaze.solveMaze();
+		//check the start and finish are correct
+		System.out.println(testMaze.startVertex() + " " + solution.get(solution.size() - 1 ));
+		if ( !testMaze.startVertex().equals( solution.get( 0 ) ) ) {
+			fail( "Solution does not start at the start!" ); 
+		}
+		
+		if ( !testMaze.finishVertex().equals( solution.get( solution.size() - 1 ) ) ) {
+			fail( "Solution does not end at the finish!" ); 
+		}
+		//check to make sure the path is correct
+		for ( int ver = 0; ver < solution.size(); ver++ ) {
+			//stop once we hit the finish
+			if ( solution.get( ver ).equals( testMaze.finishVertex() ) ) {
+				break;
+			}
+			if ( !solution.get( ver ).adjacentVertices().contains(solution.get( ver + 1) ) ) {
+				fail( "Solution not connected!" );
+			}
+		}
 	}
 	
 	/**

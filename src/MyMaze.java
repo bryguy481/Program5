@@ -32,7 +32,7 @@ public class MyMaze implements Maze {
 		//create the graphMaze and graphArray
 		graphMaze = new MyGraph();
 
-		if ( rows == 0 || columns == 0 ) {
+		if ( rows <= 0 || columns <= 0 ) {
 			graphArray = new MyVertex [ 0 ] [ 0 ];
 		} 
 		else {
@@ -68,7 +68,7 @@ public class MyMaze implements Maze {
 	private void setStartAndFinish( ) {
 
 		//If there are 0 rows or 0 columns stop
-		if ( rows == 0 || columns == 0 ) {
+		if ( rows <= 0 || columns <= 0 ) {
 			return;
 		}
 		
@@ -170,7 +170,7 @@ public class MyMaze implements Maze {
 		System.out.println("Making vertices");
 
 		//If there are 0 rows or 0 columns stop
-		if ( rows == 0 || columns == 0 ) {
+		if ( rows <= 0 || columns <= 0 ) {
 			return;
 		}
 		System.out.println("rows = " + rows + " cols = " + columns);
@@ -203,7 +203,11 @@ public class MyMaze implements Maze {
 		solution = new ArrayList< Vertex >();
 
 		//If there are 0 rows or 0 columns stop
-		if ( rows == 0 || columns == 0 ) {
+		if ( rows <= 0 || columns <= 0 ) {
+			return solution;
+		}
+		
+		if ( rows <=1 && columns <= 1 ) {
 			return solution;
 		}
 
