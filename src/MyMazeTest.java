@@ -172,8 +172,8 @@ public class MyMazeTest {
 		//check to see if solution is correct
 		ArrayList< Vertex > solution = testMaze.solveMaze();
 		//check the start and finish are correct
-		System.out.println(testMaze.startVertex() + " " + solution.get( 0 ));
-		System.out.println(testMaze.finishVertex() + " " + solution.get( solution.size() - 1 ));
+		System.out.println("start= " + testMaze.startVertex() + " Solution[0]= " + solution.get( 0 ));
+		System.out.println("finish= " + testMaze.finishVertex() + " Solution[size-1]= " + solution.get( solution.size() - 1 ));
 		
 		
 		if ( !testMaze.startVertex().equals( solution.get( 0 ) ) ) {
