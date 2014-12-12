@@ -12,6 +12,9 @@ import org.junit.Test;
  * Assignment: Program 5 MyMaze
  * Description: This class tests all the methods in MyMaze.java for edge
  *              cases.
+ * Disclaimer: No Integer.MAX_VALUE or Integer.MIN_VALUE test cases are used
+ * 			   due to the large amount of time and memory such a test would 
+ * 			   take.
  *
  */
 public class MyMazeTest {
@@ -120,8 +123,8 @@ public class MyMazeTest {
 		}
 		
 		//The toString Method should return ""
-		if ( testMaze.toString().equals( "" ) ) {
-			fail( "ToString should not be empty!" );
+		if ( !testMaze.toString().equals( "" ) ) {
+			fail( "ToString should be empty!" );
 		}
 		
 		//TestFour
@@ -130,6 +133,39 @@ public class MyMazeTest {
 		
 		if ( testMaze.toGraph().vertices().size() != 80 * 50 ) {
 			fail( " Did not generate the correct amount of vertices!" );
+		}
+		
+		//TestFive
+		//EdgeCase where negative numbers are used as input
+		testMaze.generateMaze(-50, -50);
+		System.out.println( testMaze.startVertex());
+		if ( testMaze.startVertex() != null ) {
+			fail( "Start vertex not null when negative rows and columns!" );
+		}
+		
+		//There should be no finish
+		if ( testMaze.finishVertex() != null ) {
+			fail( "Finish vertex not null when negative rows and columns!" );
+		}
+		
+		//There should be no solution
+		if ( testMaze.solveMaze().size() > 0 ) {
+			fail( "There should be no solution!" );
+		}
+		
+		//There should be no vertices in the maze
+		if ( testMaze.toGraph().vertices().size() > 0 ) {
+			fail( "There should be no vertices in the graph!" );
+		}
+		
+		//The array representation should be of size 0
+		if ( testMaze.toArray().length > 0 ) {
+			fail( "Array should be of size 0!" );
+		}
+		
+		//The toString Method should return ""
+		if ( !testMaze.toString().equals( "" ) ) {
+			fail( "ToString should be empty!" );
 		}
 		
 	}
@@ -172,10 +208,6 @@ public class MyMazeTest {
 		//check to see if solution is correct
 		ArrayList< Vertex > solution = testMaze.solveMaze();
 		//check the start and finish are correct
-		System.out.println("start= " + testMaze.startVertex() + " Solution[0]= " + solution.get( 0 ));
-		System.out.println("finish= " + testMaze.finishVertex() + " Solution[size-1]= " + solution.get( solution.size() - 1 ));
-		
-		
 		if ( !testMaze.startVertex().equals( solution.get( 0 ) ) ) {
 			fail( "Solution does not start at the start!" ); 
 		}
@@ -200,6 +232,23 @@ public class MyMazeTest {
 	 */
 	@Test
 	public void testToGraph( ) {
+		
+		MyMaze testMaze = new MyMaze();
+		
+		//TestOne
+		//EdgeCase where there should be no vertices
+		testMaze.generateMaze( 0, 0 );
+		Graph testGraph = testMaze.toGraph();
+		
+		if ( testGraph.vertices().size() > 0 ) {
+			fail( "Should have no vetices!" );
+		}
+		if ( testGraph.edges().size() > 0 ) {
+			fail( "Should be no edges!" );
+		}
+		
+		//TestTwo
+		//EdgeCase where there are 
 		
 	}
 	

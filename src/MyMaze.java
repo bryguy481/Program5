@@ -32,10 +32,18 @@ public class MyMaze implements Maze {
 
 		//create the graphMaze and graphArray
 		graphMaze = new MyGraph();
+		start = null;
+		finish = null;
 
-		if ( rows <= 0 || columns <= 0 ) {
+		if ( (rows <= 0 || columns <= 0 ) || ( rows == 1 && columns == 1 ) ) {
+			System.out.println("making 0 aray");
 			graphArray = new MyVertex [ 0 ] [ 0 ];
+			this.rows = 0; 
+			this.columns = 0;
+			System.out.println("Here!");
+			return;
 		} 
+	
 		else {
 			graphArray = new MyVertex [ rows ] [ columns ]; 
 		}
@@ -68,18 +76,6 @@ public class MyMaze implements Maze {
 	 */
 	private void setStartAndFinish( ) {
 
-		//If there are 0 rows or 0 columns stop
-		if ( rows <= 0 || columns <= 0 ) {
-			return;
-		}
-		
-		//They can be null when its 1 by 1
-		if ( rows <= 1 && columns <= 1 ) {
-			start = null;
-			finish = null;
-			return;
-		}
-
 		int min = 0;
 		int max = rows*columns;
 		int startNum = min + (int)(Math.random() * ((max - min) ));
@@ -104,11 +100,6 @@ public class MyMaze implements Maze {
 	 */
 	private void depthFirstGeneration(  ) {
 		System.out.println("Making Maze.");
-
-		//If there are 0 rows or 0 columns stop
-		if ( rows == 0 || columns == 0 ) {
-			return;
-		}
 
 		//To keep track of where you have been, this is used as a stack
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
@@ -170,10 +161,6 @@ public class MyMaze implements Maze {
 	private void addVertices( ) {
 		System.out.println("Making vertices");
 
-		//If there are 0 rows or 0 columns stop
-		if ( rows <= 0 || columns <= 0 ) {
-			return;
-		}
 		System.out.println("rows = " + rows + " cols = " + columns);
 		//Loop through all vertices and set their x and y variables, then add them to the graph
 		for ( int row = 0; row < rows ; row++ ) {
@@ -283,8 +270,7 @@ public class MyMaze implements Maze {
 	@Override
 	public String toString( ) {
 		String result = "";
-		if (rows == 0 || columns == 0) return "";
-		
+		if (rows <= 0 || columns <= 0) return "";
 		String str = "";
 		String[] lines = new String[rows * 2 - 1];
 		ArrayList<Vertex> solution = solveMaze();
