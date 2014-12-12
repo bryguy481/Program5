@@ -228,7 +228,7 @@ public class MyMaze implements Maze {
 		visited[ v.getX() ][ v.getY() ] = true;
 		//System.out.println("looking for the finish");
 		//start found
-		if ( v.getX() == start.getX() && v.getY() == start.getY() ) return true;
+		if ( v.getX() == start.getX() && v.getY() == start.getY() ) { solution.add(start); return true; }
 
 		for ( int i = 0; i < v.adjacentVertices().size(); i++ ) {
 			MyVertex next = ( MyVertex ) v.adjacentVertices().get(i);
@@ -283,12 +283,42 @@ public class MyMaze implements Maze {
 	@Override
 	public String toString( ) {
 		String result = "";
-		//If there are 0 rows or 0 columns stop
-		if ( rows != 0 && columns != 0 ) {
-			return result;
-		}
+		if (rows == 0 || columns == 0) return "";
+		
+		String str = "";
+		String[] lines = new String[rows * 2 - 1];
 
-		return "";
+		for (int i = 0; i < rows; i++) {
+			//vertices and horizontal edges
+
+
+			if (i != 0) {
+				for (int j = 0; j < columns; j++) {
+					if (graphMaze.areConnected(graphArray[i - 1][j], graphArray[i][j]))
+						str += "|  ";
+					else
+						str += "   ";
+					
+				}
+			}
+			
+			str += "\n";
+			
+			for (int j = 0; j < columns; j++) {
+				str += "•";
+				if (j != columns - 1) {
+					if (graphMaze.areConnected(graphArray[i][j], graphArray[i][j + 1]))
+						str += "--";
+					else
+						str += "  ";
+				}
+				
+			}
+			
+			str += "\n";
+		}
+		
+		return str;
 	}
 
 }

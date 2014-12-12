@@ -13,12 +13,13 @@ public class Main extends JPanel {
    
    MyMaze maze = null;
    ArrayList<Vertex> path = null;
-   int rows = 100;
-   int columns = 100;
+   int rows = 10;
+   int columns = 10;
    
    public Main( ) {
       maze = new MyMaze();
       maze.generateMaze( rows, columns );
+      System.out.println("Maze:\n" + maze);
       path = maze.solveMaze( );
       JFrame frame = new JFrame( "CS2321 Final Program Maze");
       frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
