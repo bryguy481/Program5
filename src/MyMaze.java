@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 /**
  * @author Joshua Johnson
  * @author Brian Keith
@@ -20,7 +21,7 @@ public class MyMaze implements Maze {
 
 	//The number of rows and columns in the maze
 	int rows, columns;
-
+	
 	/**
 	 * Generates a Maze with the passed in number of rows and columns
 	 * @param rows Number of rows in the maze
@@ -214,7 +215,7 @@ public class MyMaze implements Maze {
 		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
 
 		//if result found, return the solution
-		if  ( solveHelper( start ) )
+		if  ( solveHelper( finish ) )
 			return solution;
 		else
 			return new ArrayList<Vertex>( );
@@ -226,8 +227,8 @@ public class MyMaze implements Maze {
 		//this vertex is now visited
 		visited[ v.getX() ][ v.getY() ] = true;
 		//System.out.println("looking for the finish");
-		//finish found
-		if ( v.getX() == finish.getX() && v.getY() == finish.getY() ) return true;
+		//start found
+		if ( v.getX() == start.getX() && v.getY() == start.getY() ) return true;
 
 		for ( int i = 0; i < v.adjacentVertices().size(); i++ ) {
 			MyVertex next = ( MyVertex ) v.adjacentVertices().get(i);

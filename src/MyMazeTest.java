@@ -172,7 +172,10 @@ public class MyMazeTest {
 		//check to see if solution is correct
 		ArrayList< Vertex > solution = testMaze.solveMaze();
 		//check the start and finish are correct
-		System.out.println(testMaze.startVertex() + " " + solution.get(solution.size() - 1 ));
+		System.out.println(testMaze.startVertex() + " " + solution.get( 0 ));
+		System.out.println(testMaze.finishVertex() + " " + solution.get( solution.size() - 1 ));
+		
+		
 		if ( !testMaze.startVertex().equals( solution.get( 0 ) ) ) {
 			fail( "Solution does not start at the start!" ); 
 		}
