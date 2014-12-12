@@ -71,10 +71,10 @@ public class MyMaze implements Maze {
 			return;
 		}
 		
-		//They can be the same when its 1 by 1
-		if ( rows == 1 || columns == 1 ) {
-			start = ( MyVertex ) graphMaze.vertices().get( 0 );
-			finish = ( MyVertex ) graphMaze.vertices().get( 0 );
+		//They can be null when its 1 by 1
+		if ( rows <= 1 && columns <= 1 ) {
+			start = null;
+			finish = null;
 			return;
 		}
 
@@ -82,10 +82,7 @@ public class MyMaze implements Maze {
 		int max = rows*columns;
 		int startNum = min + (int)(Math.random() * ((max - min) ));
 		int finishNum = min + (int)(Math.random() * ((max - min) ));
-
-		
 	
-		
 		//if they are the same randomize until different
 		while( finishNum == startNum ) {
 			finishNum = min + (int)(Math.random() * ((max - min) ));
@@ -205,17 +202,17 @@ public class MyMaze implements Maze {
 		solution = new ArrayList< Vertex >();
 
 		//If there are 0 rows or 0 columns stop
-		if ( rows == 0 || columns == 0 ) {
+		//if ( rows == 0 || columns == 0 ) {
 			return solution;
-		}
+		//}
 
-		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
-
-		//if result found, return the solution
-		if  ( solveHelper( start ) )
-			return solution;
-		else
-			return new ArrayList<Vertex>( );
+//		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
+//
+//		//if result found, return the solution
+//		if  ( solveHelper( start ) )
+//			return solution;
+//		else
+//			return new ArrayList<Vertex>( );
 	}
 
 	//Recursive helper method to find the solution
