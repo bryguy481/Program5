@@ -268,20 +268,24 @@ public class MyMaze implements Maze {
 	 */
 	@Override
 	public String toString( ) {
-		String result = "";
 		if (rows <= 0 || columns <= 0) return "";
 		String str = "";
-		String[] lines = new String[rows * 2 - 1];
 		ArrayList<Vertex> solution = solveMaze();
 
 		for (int i = 0; i < rows; i++) {
-					
 
-			//verticle edges
+			//vertical edges
 			if (i != 0) {
 				for (int j = 0; j < columns; j++) {
-					if (graphMaze.areConnected(graphArray[i - 1][j], graphArray[i][j]))
-						str += "|  ";
+					if (graphMaze.areConnected(graphArray[i - 1][j], graphArray[i][j])){
+						//Edge is in solution
+						if (solution.contains(graphArray[i - 1][j]) && solution.contains(graphArray[i][j]))
+							str += "!  "; //CHANGE THIS WHEN WE FIND OUT WHICH CHARACTER TO USE, OR IF WE SHOULD CONVERT TO UTF-8
+						//Normal Edge
+						else
+							str += "|  ";
+					}
+					//No Edge
 					else
 						str += "   ";
 					
@@ -289,19 +293,32 @@ public class MyMaze implements Maze {
 			}
 			
 			str += "\n";
+			
 			//vertices and horizontal edges
 			for (int j = 0; j < columns; j++) {
+				//Finish
 				if (graphArray[i][j].getId() == finish.getId())
 					str += "F";
+				//Start
 				else if (graphArray[i][j] == start)
 					str += "S";
+				//Vertex is in solution
 				else if (solution.contains(graphArray[i][j]))
 					str += "o";
+				//Normal Vertex
 				else
 					str += "•";
+				
 				if (j != columns - 1) {
-					if (graphMaze.areConnected(graphArray[i][j], graphArray[i][j + 1]))
-						str += "--";
+					if (graphMaze.areConnected(graphArray[i][j], graphArray[i][j + 1])){
+						//Edge is in solution
+						if (solution.contains(graphArray[i][j]) && solution.contains(graphArray[i][j + 1]))
+							str += "==";
+						//Normal Edge
+						else
+							str += "--";
+					}
+					//No Edge
 					else
 						str += "  ";
 				}
