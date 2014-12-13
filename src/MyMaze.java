@@ -40,7 +40,6 @@ public class MyMaze implements Maze {
 			graphArray = new MyVertex [ 0 ] [ 0 ];
 			this.rows = 0; 
 			this.columns = 0;
-			System.out.println("Here!");
 			return;
 		} 
 	
