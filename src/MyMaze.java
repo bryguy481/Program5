@@ -58,12 +58,14 @@ public class MyMaze implements Maze {
 
 		//generate paths in the maze
 		depthFirstGeneration();
-
+		
 		//add the connected vertices into the graphArray
 		for ( int i = 0; i < graphMaze.vertices().size(); i++ ) {
 			MyVertex temp = ( MyVertex ) graphMaze.vertices().get( i );
 			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
 		}
+		
+		System.out.println("Generation Done!");
 	}
 	
 	

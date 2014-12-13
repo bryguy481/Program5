@@ -366,5 +366,38 @@ public class MyMazeTest {
 		if ( !testMaze.toGraph().vertices().contains( testMaze.finishVertex() ) ) {
 			fail( "finish vertex not in the list of vertices." );
 		}
+		
+	}
+	
+	/**
+	 * Tests t0 ensure the correct amount of edges
+	 */
+	@Test
+	public void testEdgeNumber(  ) {
+		
+		MyMaze testMaze = new MyMaze( );
+		
+		//TestOne
+		//EdgeCase where there should be no edges
+		testMaze.generateMaze( 0, 0 );
+		if ( testMaze.toGraph().edges().size() > 0 ) {
+			fail( "Edges should not exist!" );
+		}
+		
+		//TestTwo
+		//EdgeCase where there should be numbers of vertices - 1 edges
+		testMaze.generateMaze( 50, 50 );
+		if ( testMaze.toGraph().edges().size() != testMaze.toGraph().vertices().size() - 1 ) {
+			fail ( "There should ber number of vertices - 1 edges!" );
+		}
+		
+	}
+	
+	/**
+	 * Test for toString EdgeCases
+	 */
+	@Test
+	public void testToString( ) {
+		
 	}
 }

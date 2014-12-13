@@ -3,11 +3,15 @@ import java.util.ArrayList;
 
 public interface Graph {
    // Return a list of all vertices in the graph
-   public ArrayList< Vertex > vertices( );
+   public ArrayList<Vertex> vertices( );
    // Add a vertex to the graph
+   public Vertex addVertex( Pair p );
    public Vertex addVertex( Vertex v );
    // Remove a vertex from the graph
+   public boolean removeVertex( Pair p );
    public boolean removeVertex( Vertex v );
+   // Find a vertex in the graph by its element
+   public Vertex findVertex( Pair p );
 
    // Return a list of edges in the graph
    public ArrayList<Edge> edges( );   
@@ -27,8 +31,8 @@ public interface Graph {
    // Find all edges that connect to the given vertex
    public ArrayList<Edge> incidentEdges( Vertex v1 );
    
-   // Color the graph
-   // Return the number of colors used
-   // or -1 if the graph can't be colored using the specified colors.
-   public int colorGraph( ArrayList< GraphColor > colors ); 
+   // Return the shortest path between two vertices
+   public ArrayList<Vertex> shortestPath( Vertex v1, Vertex v2 );
+   // Return a minimum spanning tree for the graph
+   public Graph minimumSpanningTree( ); 
 }

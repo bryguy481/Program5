@@ -97,4 +97,16 @@ public class MyVertex implements Vertex {
 		return "<v" + id + " : " + color + ":" + x + " , " + y + ">";
 	}
 
+	@Override
+	public Pair getElement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setElement(Pair e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
