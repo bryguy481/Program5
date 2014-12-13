@@ -147,14 +147,7 @@ public class MyGraph implements Graph{
 		return ret;
 	}
 
-	@Override
-	public int colorGraph(ArrayList<GraphColor> colors) {
-		//ArrayList<GraphColor> available = colors;
-		
-		
-		
-		return 0;
-	}
+
 	
 	public String toString() {
 		return "<Graph:" + vertices + ", " + edges + ">";
