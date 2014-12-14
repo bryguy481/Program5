@@ -170,12 +170,57 @@ public class MyGraph implements Graph{
 		return null;
 	}
 
+	
+	private ArrayList< Vertex > path;
+	private ArrayList< Vertex > visited;
+	/**
+	 * Returns a list of vertices that is the shortest path between the two passed in.
+	 */
 	@Override
 	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
 		// TODO Auto-generated method stub
-		return null;
+		path = new ArrayList< Vertex >( );
+		visited = new ArrayList< Vertex >( ); 
+		
+		if ( vertices.size() <= 0 ) {
+			return path;
+		}
+		
+		if ( pathHelper( v2, v1 ) ) {
+			return path;
+		} 
+		else {
+			return new ArrayList< Vertex >();
+		}
+		
 	}
 
+	public boolean pathHelper( Vertex ver1, Vertex ver2 ){
+	
+		MyVertex v1 = ( MyVertex ) ver1;
+		MyVertex v2 = ( MyVertex ) ver2;
+		//this vertex is now visited
+		visited.add( ver1 );
+		//System.out.println("looking for the finish");
+		//start found
+		if ( v1.getX() == v2.getX() && v1.getY() == v2.getY() ) { path.add( v2 ); return true; }
+
+		for ( int i = 0; i < v1.adjacentVertices().size(); i++ ) {
+			MyVertex next = ( MyVertex ) v1.adjacentVertices().get(i);
+			//if the next vertex hasn't been visited
+			if ( !visited.contains( next ) ) {
+				if ( pathHelper( next, v2 ) ) {
+					//add if finish found ahead
+					path.add( v1 );
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+	
+	
 	@Override
 	public Graph minimumSpanningTree() {
 		// TODO Auto-generated method stub

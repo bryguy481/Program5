@@ -176,10 +176,6 @@ public class MyMaze implements Maze {
 		}
 	}
 
-	//Variables used to solve the maze
-	private ArrayList< Vertex > solution;
-	private boolean[ ][ ] visited;
-
 	/**
 	 * @return Returns an ArrayList of Vertices that is the 
 	 *         path from the start to the finish of the maze.
@@ -188,49 +184,8 @@ public class MyMaze implements Maze {
 	public ArrayList< Vertex > solveMaze() {
 		System.out.println("Solving maze");
 
-		//reset solution and visited
-		solution = new ArrayList< Vertex >();
+		return graphMaze.shortestPath(start, finish);
 
-		//If there are 0 rows or 0 columns stop
-		if ( rows <= 0 || columns <= 0 ) {
-			return solution;
-		}
-		
-		if ( rows <=1 && columns <= 1 ) {
-			return solution;
-		}
-
-		visited = new boolean [ graphArray.length ][ graphArray[ 0 ].length ];
-
-		//if result found, return the solution
-		if  ( solveHelper( finish ) )
-			return solution;
-		else
-			return new ArrayList<Vertex>( );
-	}
-
-	//Recursive helper method to find the solution
-	private boolean solveHelper( Vertex vertex ) {
-		MyVertex v = ( MyVertex ) vertex;
-		//this vertex is now visited
-		visited[ v.getX() ][ v.getY() ] = true;
-		//System.out.println("looking for the finish");
-		//start found
-		if ( v.getX() == start.getX() && v.getY() == start.getY() ) { solution.add(start); return true; }
-
-		for ( int i = 0; i < v.adjacentVertices().size(); i++ ) {
-			MyVertex next = ( MyVertex ) v.adjacentVertices().get(i);
-			//if the next vertex hasn't been visited
-			if ( !visited[ next.getX() ][ next.getY() ] ) {
-				if ( solveHelper( next ) ) {
-					//add if finish found ahead
-					solution.add( v );
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 
 	/**

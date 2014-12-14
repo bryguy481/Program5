@@ -41,6 +41,8 @@ public class MyMazeTest {
 			fail( "Finish vertex not null when 0 rows!" );
 		}
 
+		System.out.println("Solve maze orgin "  + testMaze.solveMaze());
+		System.out.println("New " + testMaze.toGraph().shortestPath(testMaze.startVertex(), testMaze.finishVertex()));
 		//There should be no solution
 		if ( testMaze.solveMaze().size() > 0 ) {
 			fail( "There should be no solution!" );
@@ -135,6 +137,7 @@ public class MyMazeTest {
 			fail( " Did not generate the correct amount of vertices!" );
 		}
 
+	
 		//TestFive
 		//EdgeCase where negative numbers are used as input
 		testMaze.generateMaze(-50, -50);
