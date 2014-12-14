@@ -36,7 +36,6 @@ public class MyMaze implements Maze {
 		finish = null;
 
 		if ( (rows <= 0 || columns <= 0 ) || ( rows == 1 && columns == 1 ) ) {
-			System.out.println("making 0 aray");
 			graphArray = new MyVertex [ 0 ] [ 0 ];
 			this.rows = 0; 
 			this.columns = 0;
@@ -65,7 +64,6 @@ public class MyMaze implements Maze {
 			graphArray [ temp.getX() ] [ temp.getY() ] = temp;
 		}
 		
-		System.out.println("Generation Done!");
 	}
 	
 	
@@ -100,7 +98,6 @@ public class MyMaze implements Maze {
 	 * @param columns The number of columns in the maze.
 	 */
 	private void depthFirstGeneration(  ) {
-		System.out.println("Making Maze.");
 
 		//To keep track of where you have been, this is used as a stack
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
@@ -160,14 +157,12 @@ public class MyMaze implements Maze {
 	 * @param columns The number of columns in the maze.
 	 */
 	private void addVertices( ) {
-		System.out.println("Making vertices");
 
-		System.out.println("rows = " + rows + " cols = " + columns);
 		//Loop through all vertices and set their x and y variables, then add them to the graph
 		for ( int row = 0; row < rows ; row++ ) {
 			for ( int col = 0; col < columns ; col++ ) {
 				//create the vertex
-				MyVertex temp = new MyVertex();
+				MyVertex temp = new MyVertex( );
 				temp.setY( col );
 				temp.setX( row );
 				
@@ -182,9 +177,8 @@ public class MyMaze implements Maze {
 	 */
 	@Override
 	public ArrayList< Vertex > solveMaze() {
-		System.out.println("Solving maze");
 
-		return graphMaze.shortestPath(start, finish);
+		return graphMaze.shortestPath( start, finish );
 
 	}
 
@@ -225,18 +219,18 @@ public class MyMaze implements Maze {
 	 */
 	@Override
 	public String toString( ) {
-		if (rows <= 0 || columns <= 0) return "";
+		if ( rows <= 0 || columns <= 0 ) return "";
 		String str = "";
-		ArrayList<Vertex> solution = solveMaze();
+		ArrayList< Vertex > solution = solveMaze( );
 
-		for (int i = 0; i < rows; i++) {
+		for ( int i = 0; i < rows; i++ ) {
 
 			//vertical edges
-			if (i != 0) {
-				for (int j = 0; j < columns; j++) {
-					if (graphMaze.areConnected(graphArray[i - 1][j], graphArray[i][j])){
+			if ( i != 0 ) {
+				for ( int j = 0; j < columns; j++ ) {
+					if ( graphMaze.areConnected( graphArray[i - 1][j], graphArray[i][j] ) ){
 						//Edge is in solution
-						if (solution.contains(graphArray[i - 1][j]) && solution.contains(graphArray[i][j]))
+						if ( solution.contains( graphArray[i - 1][j] ) && solution.contains( graphArray[i][j] ) )
 							str += "!  "; //CHANGE THIS WHEN WE FIND OUT WHICH CHARACTER TO USE, OR IF WE SHOULD CONVERT TO UTF-8
 						//Normal Edge
 						else
@@ -252,24 +246,24 @@ public class MyMaze implements Maze {
 			str += "\n";
 			
 			//vertices and horizontal edges
-			for (int j = 0; j < columns; j++) {
+			for ( int j = 0; j < columns; j++ ) {
 				//Finish
-				if (graphArray[i][j].getId() == finish.getId())
+				if ( graphArray[i][j].getId() == finish.getId() )
 					str += "F";
 				//Start
-				else if (graphArray[i][j] == start)
+				else if ( graphArray[i][j] == start )
 					str += "S";
 				//Vertex is in solution
-				else if (solution.contains(graphArray[i][j]))
+				else if ( solution.contains( graphArray[i][j] ) )
 					str += "o";
 				//Normal Vertex
 				else
 					str += "•";
 				
-				if (j != columns - 1) {
-					if (graphMaze.areConnected(graphArray[i][j], graphArray[i][j + 1])){
+				if ( j != columns - 1 ) {
+					if ( graphMaze.areConnected( graphArray[i][j], graphArray[i][j + 1] ) ){
 						//Edge is in solution
-						if (solution.contains(graphArray[i][j]) && solution.contains(graphArray[i][j + 1]))
+						if ( solution.contains( graphArray[i][j]) && solution.contains( graphArray[i][j + 1] ) )
 							str += "==";
 						//Normal Edge
 						else

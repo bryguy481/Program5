@@ -41,8 +41,6 @@ public class MyMazeTest {
 			fail( "Finish vertex not null when 0 rows!" );
 		}
 
-		System.out.println("Solve maze orgin "  + testMaze.solveMaze());
-		System.out.println("New " + testMaze.toGraph().shortestPath(testMaze.startVertex(), testMaze.finishVertex()));
 		//There should be no solution
 		if ( testMaze.solveMaze().size() > 0 ) {
 			fail( "There should be no solution!" );
@@ -141,7 +139,6 @@ public class MyMazeTest {
 		//TestFive
 		//EdgeCase where negative numbers are used as input
 		testMaze.generateMaze(-50, -50);
-		System.out.println( testMaze.startVertex());
 		if ( testMaze.startVertex() != null ) {
 			fail( "Start vertex not null when negative rows and columns!" );
 		}
@@ -304,7 +301,7 @@ public class MyMazeTest {
 		MyMaze testMaze = new MyMaze();
 
 		//TestOne
-		//EdgeCase where the start vertex should be null, rows = 0 cols = 0
+		//EdgeCase where the start vertex should be null, rows = 0 columns = 0
 		testMaze.generateMaze( 0, 0 );
 
 		if ( testMaze.startVertex() != null ) {
@@ -312,7 +309,7 @@ public class MyMazeTest {
 		}
 
 		//TestTwo
-		//EdgeCase where row = 1 cols = 1
+		//EdgeCase where row = 1 columns = 1
 		testMaze.generateMaze( 1, 1 );
 		if ( testMaze.toGraph().vertices().contains( testMaze.startVertex() )  ) {
 			fail( "Start vertex should not be in the the vertices." );
