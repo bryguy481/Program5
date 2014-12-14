@@ -224,6 +224,56 @@ public class MyGraph implements Graph{
 	@Override
 	public Graph minimumSpanningTree() {
 		// TODO Auto-generated method stub
+		System.out.println("Making min spanning stree");
+		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
+		int numOfVertices = vertices().size();
+
+		int min = 0;
+		int max = vertices().size();
+		//Randomly pick a starting vertex to generate from
+		MyVertex currentLocation = ( MyVertex ) ( vertices().get( min + ( int )( Math.random() * ( ( max - min ) ) ) ) );
+		int visitedLocations = 1;
+		//Add edges until every vertex has one edge
+		while ( visitedLocations < numOfVertices ) {
+			//find all vertices next to currentCell with no adjacent vertices
+			ArrayList< MyVertex > unTouchedLocations = new ArrayList< MyVertex >();
+			int curX = currentLocation.getX();
+			int curY = currentLocation.getY();
+
+			//This finds all neighbors to the current position that have not been visited and adds it to the List
+			for ( int tempV = 0; tempV < vertices().size(); tempV++ ) {
+				//so we can access the x and y
+				MyVertex temp = (MyVertex) vertices().get( tempV );
+				//If it is next to our current location
+				if ( ( ( temp.getX() - 1 == curX || temp.getX() + 1 == curX ) && temp.getY() == curY ) ||  ( ( temp.getY() - 1 == curY || temp.getY() + 1 == curY ) && temp.getX() == curX ) ) {
+					//if it has nothing adjacent to it
+					if ( temp.adjacentVertices().size() == 0 ) {
+						unTouchedLocations.add( temp );
+					}
+				}
+			}
+			//if we have locations next to us with no connections
+			if ( unTouchedLocations.size() > 0 ) {
+				//choose one at random
+				int randVer =  ( int )( Math.random() *   unTouchedLocations.size() );
+				MyVertex nextVer = unTouchedLocations.get( randVer );
+
+				//connect them and move to the new location
+				addEdge( currentLocation, nextVer );
+				locations.add( currentLocation );
+
+				currentLocation = nextVer;
+				visitedLocations++;
+			}
+			//no untouched locations next to the current location
+			else {
+				//making the ArrayList act like a stack
+				//Go back a step to look for neighbors with no connections
+				currentLocation = locations.get( locations.size() - 1 );
+				locations.remove( locations.size() - 1 );
+			}
+		}
+		
 		return null;
 	}
 
