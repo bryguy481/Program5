@@ -227,7 +227,8 @@ public class MyGraph implements Graph{
 		System.out.println("Making min spanning stree");
 		ArrayList< MyVertex > locations = new ArrayList< MyVertex >();
 		int numOfVertices = vertices().size();
-
+		MyGraph spanningTree = new MyGraph();
+		
 		int min = 0;
 		int max = vertices().size();
 		//Randomly pick a starting vertex to generate from
@@ -259,7 +260,7 @@ public class MyGraph implements Graph{
 				MyVertex nextVer = unTouchedLocations.get( randVer );
 
 				//connect them and move to the new location
-				addEdge( currentLocation, nextVer );
+				spanningTree.addEdge( currentLocation, nextVer );
 				locations.add( currentLocation );
 
 				currentLocation = nextVer;
@@ -274,7 +275,7 @@ public class MyGraph implements Graph{
 			}
 		}
 		
-		return null;
+		return spanningTree;
 	}
 
 }
