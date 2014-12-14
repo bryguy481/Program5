@@ -137,7 +137,7 @@ public class MyMazeTest {
 			fail( " Did not generate the correct amount of vertices!" );
 		}
 
-	
+
 		//TestFive
 		//EdgeCase where negative numbers are used as input
 		testMaze.generateMaze(-50, -50);
@@ -369,38 +369,60 @@ public class MyMazeTest {
 		if ( !testMaze.toGraph().vertices().contains( testMaze.finishVertex() ) ) {
 			fail( "finish vertex not in the list of vertices." );
 		}
-		
+
 	}
-	
+
 	/**
 	 * Tests t0 ensure the correct amount of edges
 	 */
 	@Test
 	public void testEdgeNumber(  ) {
-		
+
 		MyMaze testMaze = new MyMaze( );
-		
+
 		//TestOne
 		//EdgeCase where there should be no edges
 		testMaze.generateMaze( 0, 0 );
 		if ( testMaze.toGraph().edges().size() > 0 ) {
 			fail( "Edges should not exist!" );
 		}
-		
+
 		//TestTwo
 		//EdgeCase where there should be numbers of vertices - 1 edges
 		testMaze.generateMaze( 50, 50 );
 		if ( testMaze.toGraph().edges().size() != testMaze.toGraph().vertices().size() - 1 ) {
 			fail ( "There should ber number of vertices - 1 edges!" );
 		}
-		
+
 	}
-	
+
 	/**
 	 * Test for toString EdgeCases
 	 */
 	@Test
 	public void testToString( ) {
-		
+
+	}
+	
+	/**
+	 * Test Case borrowed from Leo Ureel II
+	 */
+	@Test
+	public void testPathBetweenAllVertices( ) {
+		MyMaze maze = new MyMaze( );
+		maze.generateMaze( 4, 4 );
+		Graph graph = maze.toGraph( );
+		ArrayList< Vertex > vertices = graph.vertices( );
+		for ( int i = 0; i < vertices.size( ); i++ ) {
+			for ( int j = 0; j < vertices.size( ); j++ ) {
+				Vertex v1 = vertices.get( i );
+				Vertex v2 = vertices.get( j );
+				if ( v1 != v2 ) {
+					if ( graph.shortestPath( (MyVertex) v1, (MyVertex) v2 ).isEmpty( ) ) {
+						fail( "Vertex " + v1 + " is not connected to vertex " + v2 + " in graph:" + graph );
+					}
+				}
+			}
+		}
 	}
 }
