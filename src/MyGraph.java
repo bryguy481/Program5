@@ -25,6 +25,8 @@ public class MyGraph implements Graph{
 	
 	@Override
 	public boolean removeVertex(Vertex v) {
+		if (v == null) return false;
+		
 		//remove all edges containing the vertex
 		for (int i = 0; i < edges.size(); i++) {
 			//check edge for vertex, remove if there
@@ -81,19 +83,20 @@ public class MyGraph implements Graph{
 	@Override
 	public boolean removeEdge(Vertex v1, Vertex v2) {
 		//find edge and remove
+		boolean found = false;
 		for (int i = 0; i < edges.size(); i++) {
 			//if edge contains both points, remove it
 			if (((MyEdge) edges.get(i)).contains(v1, v2)) {
 				edges.remove(i);
-				return true;
+				found = true;
 			}
 		}
 		
 		for (int i = 0; i < vertices.size(); i++) {
 			((MyVertex) vertices.get(i)).removeEdge(v1,  v2);
 		}
-		//edge not found
-		return false;
+		
+		return found;
 	}
 
 	@Override
@@ -123,28 +126,12 @@ public class MyGraph implements Graph{
 
 	@Override
 	public ArrayList<Vertex> adjacentVertices(Vertex v1) {
-		ArrayList<Vertex> ret = new ArrayList<Vertex>();
-		//find edges
-		for (int i = 0; i < edges.size(); i++) {
-			//if edge contains vertex, add its adjacent point to ret
-			if (((MyEdge) edges.get(i)).contains(v1)) {
-				ret.add(((MyEdge) edges.get(i)).getAdjacent(v1));
-			}
-		}
-		return ret;
+		return ((MyVertex) v1).adjacentVertices();
 	}
 
 	@Override
 	public ArrayList<Edge> incidentEdges(Vertex v1) {
-		ArrayList<Edge> ret = new ArrayList<Edge>();
-		//find edges
-		for (int i = 0; i < edges.size(); i++) {
-			//if edge contains vertex, add it to ret
-			if (((MyEdge) edges.get(i)).contains(v1)) {
-				ret.add(((MyEdge) edges.get(i)));
-			}
-		}
-		return ret;
+		return ((MyVertex) v1).incidentEdges();
 	}
 
 
@@ -160,20 +147,26 @@ public class MyGraph implements Graph{
 	
 	@Override
 	public Vertex addVertex(Pair p) {
+		//create new vertex with pair p
 		MyVertex v = new MyVertex();
 		v.setElement(p);
+		//add vertex
 		return addVertex(v);
 	}
 
 	@Override
 	public boolean removeVertex(Pair p) {
-		// TODO Auto-generated method stub
-		return false;
+		//find vertex with pair p and remove it
+		return removeVertex(findVertex(p));
 	}
 
 	@Override
 	public Vertex findVertex(Pair p) {
-		// TODO Auto-generated method stub
+		//find vertex with same x and y as p
+		for (int i = 0; i < vertices.size(); i++) {
+			if (vertices.get(i).getElement().getX() == p.getX() && vertices.get(i).getElement().getY() == p.getY())
+				return vertices.get(i);
+		}
 		return null;
 	}
 

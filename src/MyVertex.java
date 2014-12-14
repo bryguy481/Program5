@@ -45,11 +45,14 @@ public class MyVertex implements Vertex {
 	
 	public void removeEdge(Vertex v1, Vertex v2) {
 		for (int i = 0; i < edges.size(); i++) {
-			if ((((MyEdge) edges.get(i)).contains(v1, v2))) {
-				//for (int j = 0; j < vertices.size(); j++ ) {
-				//	if (vertices.get(i).getId() == v1.getId() || vertices.get(i).getId() == v2.getId())
-				//		vertices.remove(i);
-				//}
+			//if this edge connects v1 and v2
+			if (((MyEdge) edges.get(i)).contains(v1, v2)) {
+				//find vertices of this edge and remove them
+				for (int j = 0; j < vertices.size(); j++ ) {
+					if (v1.getElement().getX() == vertices.get(j).getElement().getX() && v1.getElement().getY() == vertices.get(j).getElement().getY() ||
+							v2.getElement().getX() == vertices.get(j).getElement().getX() && v2.getElement().getY() == vertices.get(j).getElement().getY())
+						vertices.remove(j);
+				}
 				edges.remove(i);
 			}
 		}
