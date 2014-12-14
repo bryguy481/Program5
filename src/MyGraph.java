@@ -22,7 +22,7 @@ public class MyGraph implements Graph{
 		vertices.add(newVertex);
 		return newVertex;
 	}
-
+	
 	@Override
 	public boolean removeVertex(Vertex v) {
 		//remove all edges containing the vertex
@@ -40,7 +40,7 @@ public class MyGraph implements Graph{
 		//remove vertex
 		return vertices.remove(v);
 	}
-
+	
 	@Override
 	public ArrayList<Edge> edges() {
 		return edges;
@@ -51,17 +51,17 @@ public class MyGraph implements Graph{
 		//if edge exists, return null
 		if (findEdge(v1, v2) != null) return null;
 		//if v1 = v2, return null
-		if (v1.getId() == v2.getId()) return null;
+		if (v1.getElement().getX() == v2.getElement().getX() && v1.getElement().getY() == v2.getElement().getY()) return null;
 		
 		//create new MyEdge
 		MyEdge newEdge = new MyEdge(v1, v2);
 		edges.add(newEdge);
 
 		for (int i = 0; i < vertices.size(); i++) {
-			if (vertices.get(i).getId() == v1.getId()) {
+			if (v1.getElement().getX() == vertices.get(i).getElement().getX() && v1.getElement().getY() == vertices.get(i).getElement().getY()) {
 				((MyVertex) vertices.get(i)).addVertex(v2);
 				((MyVertex) vertices.get(i)).addEdge(newEdge);
-			} else if (vertices.get(i).getId() == v2.getId()) {
+			} else if (v2.getElement().getX() == vertices.get(i).getElement().getX() && v2.getElement().getY() == vertices.get(i).getElement().getY()) {
 				((MyVertex) vertices.get(i)).addVertex(v1);
 				((MyVertex) vertices.get(i)).addEdge(newEdge);
 			}
@@ -77,7 +77,7 @@ public class MyGraph implements Graph{
 		edges.add(newEdge);		
 		return newEdge;
 	}
-
+	
 	@Override
 	public boolean removeEdge(Vertex v1, Vertex v2) {
 		//find edge and remove
@@ -101,7 +101,7 @@ public class MyGraph implements Graph{
 		//use other removeEdge method. Send edge vertices as parameters.
 		return removeEdge(e.vertices().get(0), e.vertices().get(1));
 	}
-
+	
 	@Override
 	public Edge findEdge(Vertex v1, Vertex v2) {
 		//find edge
@@ -151,6 +151,42 @@ public class MyGraph implements Graph{
 	
 	public String toString() {
 		return "<Graph:" + vertices + ", " + edges + ">";
+	}
+
+	
+	
+	
+	//NEW STUFF FOR MAZE
+	
+	@Override
+	public Vertex addVertex(Pair p) {
+		MyVertex v = new MyVertex();
+		v.setElement(p);
+		return addVertex(v);
+	}
+
+	@Override
+	public boolean removeVertex(Pair p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Vertex findVertex(Pair p) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Vertex> shortestPath(Vertex v1, Vertex v2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Graph minimumSpanningTree() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

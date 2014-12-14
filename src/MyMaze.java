@@ -309,7 +309,7 @@ public class MyMaze implements Maze {
 					str += "o";
 				//Normal Vertex
 				else
-					str += "•";
+					str += "â€¢";
 				
 				if (j != columns - 1) {
 					if (graphMaze.areConnected(graphArray[i][j], graphArray[i][j + 1])){

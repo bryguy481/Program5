@@ -4,10 +4,9 @@ import java.util.ArrayList;
 public class MyVertex implements Vertex {
 
 	private int id = 0;
-	private GraphColor color;
 	private ArrayList<Edge> edges;
 	private ArrayList<Vertex> vertices;
-	private int x, y;
+	private MyPair element = new MyPair();
 	
 	
 	public MyVertex() {
@@ -16,19 +15,19 @@ public class MyVertex implements Vertex {
 	}
 	
 	public int getX() {
-		return x;
+		return element.getX();
 	}
 	
 	public void setX( int x ) {
-		this.x = x;
+		element.setX(x);;
 	}
 	
 	public int getY() {
-		return y;
+		return element.getY();
 	}
 	
 	public void setY( int y ) {
-		this.y = y;
+		element.setY(y);
 	}
 	
 	public int getId() {
@@ -39,23 +38,14 @@ public class MyVertex implements Vertex {
 		id = newID;
 	}
 	
-	@Override
-	public GraphColor getColor() {
-		return color;
-	}
-
-	@Override
-	public void setColor(GraphColor newVal) {
-		color = newVal;
-	}
-
 	public void addEdge(Edge e) {
 		edges.add(e);
 	}
 	
+	
 	public void removeEdge(Vertex v1, Vertex v2) {
 		for (int i = 0; i < edges.size(); i++) {
-			if ((edges.get(i).vertices().get(0).getId() == v1.getId() && edges.get(i).vertices().get(1).getId() == v2.getId()) || (edges.get(i).vertices().get(0).getId() == v2.getId() && edges.get(i).vertices().get(1).getId() == v1.getId())) {
+			if ((((MyEdge) edges.get(i)).contains(v1, v2))) {
 				//for (int j = 0; j < vertices.size(); j++ ) {
 				//	if (vertices.get(i).getId() == v1.getId() || vertices.get(i).getId() == v2.getId())
 				//		vertices.remove(i);
@@ -64,15 +54,12 @@ public class MyVertex implements Vertex {
 			}
 		}
 	}
-	
-	public void addVertex(Vertex v) {
-		vertices.add(v);
-	}
+
 	
 	public void removeVertex(Vertex v) {
 		//find and remove vertex
 		for (int i = 0; i < vertices.size(); i++) {
-			if (vertices.get(i).getId() == v.getId())
+			if (v.getElement().getX() == vertices.get(i).getElement().getX() && v.getElement().getY() == vertices.get(i).getElement().getY())
 				vertices.remove(i);
 		}
 		
@@ -81,6 +68,11 @@ public class MyVertex implements Vertex {
 			if (((MyEdge) edges.get(i)).contains(v))
 				edges.remove(i);
 		}
+	}
+	
+	
+	public void addVertex(Vertex v) {
+		vertices.add(v);
 	}
 	
 	@Override
@@ -94,19 +86,17 @@ public class MyVertex implements Vertex {
 	}
 	
 	public String toString() {
-		return "<v" + id + " : " + color + ":" + x + " , " + y + ">";
+		return "<v" + id + ":" + element.getX() + " , " + element.getY() + ">";
 	}
 
 	@Override
 	public Pair getElement() {
-		// TODO Auto-generated method stub
-		return null;
+		return element;
 	}
 
 	@Override
 	public void setElement(Pair e) {
-		// TODO Auto-generated method stub
-		
+		element = (MyPair) e;
 	}
 
 }

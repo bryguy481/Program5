@@ -16,24 +16,36 @@ public class MyEdge implements Edge {
 	}
 	
 	public Vertex getAdjacent(Vertex v) {
-		if (v.getId() == vertices.get(0).getId())
+		if (v.getElement().getX() == vertices.get(0).getElement().getX() && v.getElement().getY() == vertices.get(0).getElement().getY())
 			return vertices.get(1);
-		else if (v.getId() == vertices.get(1).getId())
+		else if (v.getElement().getX() == vertices.get(1).getElement().getX() && v.getElement().getY() == vertices.get(1).getElement().getY())
 			return vertices.get(0);
 		else
 			return null;
 	}
 	
 	public boolean contains(Vertex v) {
-		return (v.getId() == vertices.get(0).getId() || v.getId() == vertices.get(1).getId());
+		return (v.getElement().getX() == vertices.get(0).getElement().getX() && v.getElement().getY() == vertices.get(0).getElement().getY() || v.getElement().getX() == vertices.get(1).getElement().getX() && v.getElement().getY() == vertices.get(1).getElement().getY());
 	}
 	
 	//returns true if this edge contains v1 and v2
 	public boolean contains(Vertex v1, Vertex v2) {
-		return ((v1.getId() == vertices.get(0).getId() && v2.getId() == vertices.get(1).getId()) || (v1.getId() == vertices.get(1).getId() && v2.getId() == vertices.get(0).getId()));
+		return contains(v1) && contains(v2);
 	}
 
 	public String toString() {
-		return "<v" + vertices.get(0).getId() + "-v" + vertices.get(1).getId() + ">";
+		return "<v" + ((MyVertex) vertices.get(0)).getId() + "-v" + ((MyVertex) vertices.get(1)).getId() + ">";
+	}
+
+	@Override
+	public int getElement() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setElement(int e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
