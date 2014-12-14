@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class MyEdge implements Edge {
 
 	private ArrayList<Vertex> vertices = new ArrayList<Vertex>();
+	private int element;
+	
 	
 	public MyEdge(Vertex v1, Vertex v2) {
 		vertices.add(v1);
@@ -39,13 +41,11 @@ public class MyEdge implements Edge {
 
 	@Override
 	public int getElement() {
-		// TODO Auto-generated method stub
-		return 0;
+		return element;
 	}
 
 	@Override
 	public void setElement(int e) {
-		// TODO Auto-generated method stub
-		
+		element = e;
 	}
 }
