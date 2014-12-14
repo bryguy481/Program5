@@ -401,7 +401,19 @@ public class MyMazeTest {
 	 */
 	@Test
 	public void testToString( ) {
+		MyMaze testMaze = new MyMaze( );
 
+		//TestOne
+		//EdgeCase where toString should be ""
+		testMaze.generateMaze(0, 0);
+		if ( !testMaze.toString().equals("") ) {
+			fail( "Incorrect ToString" );
+		}
+		
+		//TestTwo
+		//These must be visibly checked as they are random every time
+		testMaze.generateMaze(30, 20);
+		System.out.println(testMaze.toString());
 	}
 	
 	/**
