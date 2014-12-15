@@ -229,6 +229,10 @@ public class MyGraph implements Graph{
 		int numOfVertices = vertices().size();
 		MyGraph spanningTree = new MyGraph();
 		
+		if ( edges.size() > 0 ) {
+			return this;
+		}
+		
 		int min = 0;
 		int max = vertices().size();
 		//Randomly pick a starting vertex to generate from
@@ -264,10 +268,12 @@ public class MyGraph implements Graph{
 				locations.add( currentLocation );
 
 				currentLocation = nextVer;
+				System.out.println(visitedLocations);
 				visitedLocations++;
 			}
 			//no untouched locations next to the current location
 			else {
+				
 				//making the ArrayList act like a stack
 				//Go back a step to look for neighbors with no connections
 				currentLocation = locations.get( locations.size() - 1 );

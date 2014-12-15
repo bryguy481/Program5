@@ -434,4 +434,46 @@ public class MyMazeTest {
 			}
 		}
 	}
+	
+	/**
+	 * Tests for the other interface Methods
+	 */
+	@Test
+	public void testSpanningTree( ) {
+		
+		MyMaze testMaze = new MyMaze( );
+		
+		//TestOne
+		testMaze.generateMaze( 50, 50 );
+		MyGraph spanTree = (MyGraph) testMaze.toGraph().minimumSpanningTree();
+		if ( spanTree.vertices() != testMaze.toGraph().vertices() ) {
+			fail( "Spanning Tree not generated" );
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
