@@ -12,9 +12,16 @@ import org.junit.Test;
  * Assignment: Program 5 MyMaze
  * Description: This class tests all the methods in MyMaze.java for edge
  *              cases.
- * Disclaimer: No Integer.MAX_VALUE or Integer.MIN_VALUE test cases are used
- * 			   due to the large amount of time and memory such a test would 
- * 			   take.
+ * Disclaimer One: No Integer.MAX_VALUE or Integer.MIN_VALUE test cases are used
+ * 			       due to the large amount of time and memory such a test would 
+ * 			       take.
+ * 
+ * Disclaimer Two: Method that deal with the Pair class are not tested
+ * 				   as they are not used. All other methods are tested 
+ * 				   by the use of the methods in the MyMaze and MyGraph
+ *                 classes which are used extensively. If they don't 
+ *                 work the entire maze does not work. We found this
+ *                 to be sufficient testing.
  *
  */
 public class MyMazeTest {
